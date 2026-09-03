@@ -152,7 +152,7 @@ export function Header() {
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <header
         ref={headerRef}
-        className="absolute inset-x-0 top-0 z-50 h-24 overflow-x-clip border-b border-transparent bg-transparent transition-colors duration-200 hover:bg-[#1b1b1b] md:top-10 md:h-[82px]"
+        className="absolute inset-x-0 top-0 z-50 h-24 overflow-x-clip border-b border-transparent bg-transparent transition-colors duration-200 hover:!bg-[#1b1b1b] md:top-10 md:h-[82px]"
       >
         <div className="absolute inset-x-0 top-0 flex h-8 items-center border-b border-white/10 bg-[#1b1b1b] md:-top-10 md:h-10">
           <button type="button" aria-label="Previous announcement" className="absolute left-1/2 top-1/2 hidden -translate-x-[320px] -translate-y-1/2 px-2 text-[14px] leading-none text-white/90 transition-opacity hover:opacity-60 md:block">←</button>

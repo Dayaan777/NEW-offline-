@@ -240,7 +240,7 @@ export function Header() {
 
           {/* ── Mobile layout ──────────────────────────────────────────────── */}
           <div className="grid h-full grid-cols-3 items-center px-6 md:hidden">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-5 self-stretch">
               <button
                 onClick={() => setIsMobileOpen(true)}
                 aria-label="Open navigation menu"
@@ -268,7 +268,7 @@ export function Header() {
             <button
               onClick={openCart}
               aria-label={`Cart${itemCount > 0 ? `, ${itemCount} item${itemCount !== 1 ? 's' : ''}` : ''}`}
-              className="relative text-[color:var(--color-text-inverse)] opacity-100 hover:opacity-70 transition-opacity duration-100 focus:outline-none"
+              className="relative flex h-full items-center justify-self-end text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
             >
               <IconBag className="h-[18px] w-[18px]" />
               {itemCount > 0 && (

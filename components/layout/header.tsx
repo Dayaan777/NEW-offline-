@@ -26,9 +26,9 @@ type NavLink =
   | { label: string; href: string; id?: never; dropdown?: never }
 
 const NAV_LINKS: NavLink[] = [
-  { label: 'New In', href: '/shop/new' },
+  { label: 'MEN', href: '/shop/new' },
   {
-    label: 'Clothing',
+    label: 'WOMEN',
     id: 'clothing',
     dropdown: [
       { label: 'Ground', href: '/shop/ground' },
@@ -38,7 +38,7 @@ const NAV_LINKS: NavLink[] = [
     ],
   },
   {
-    label: 'Collections',
+    label: 'HOME',
     id: 'collections',
     dropdown: [
       { label: 'Shop all', href: '/shop' },
@@ -47,16 +47,16 @@ const NAV_LINKS: NavLink[] = [
       { label: 'The brand', href: '/brand' },
     ],
   },
-  { label: 'Accessories', href: '/shop/floor' },
-  { label: 'Sale', href: '/shop/new' },
+  { label: 'SHOES', href: '/shop/floor' },
+  { label: 'NEW RELEASES', href: '/shop/new' },
 ]
 
 const MOBILE_LINKS = [
-  { label: 'New In', href: '/shop/new' },
-  { label: 'Clothing', href: '/shop/field' },
-  { label: 'Collections', href: '/shop' },
-  { label: 'Accessories', href: '/shop/floor' },
-  { label: 'Sale', href: '/shop/new' },
+  { label: 'MEN', href: '/shop/new' },
+  { label: 'WOMEN', href: '/shop/field' },
+  { label: 'HOME', href: '/shop' },
+  { label: 'SHOES', href: '/shop/floor' },
+  { label: 'NEW RELEASES', href: '/shop/new' },
 ]
 
 // ─── Component ────────────────────────────────────────────────────────────────

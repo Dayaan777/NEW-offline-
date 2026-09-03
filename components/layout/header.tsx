@@ -152,7 +152,7 @@ export function Header() {
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <header
         ref={headerRef}
-        className="absolute inset-x-0 top-10 z-50 h-[54px] overflow-x-clip border-b border-transparent bg-transparent md:h-[82px]"
+        className="absolute inset-x-0 top-0 z-50 h-16 overflow-x-clip border-b border-transparent bg-transparent md:top-10 md:h-[82px]"
       >
         <div className="absolute inset-x-0 -top-10 hidden h-10 border-b border-white/10 bg-[#1b1b1b] md:flex md:items-center">
           <button type="button" aria-label="Previous announcement" className="absolute left-1/2 top-1/2 -translate-x-[320px] -translate-y-1/2 px-2 text-[14px] leading-none text-white/90 transition-opacity hover:opacity-60">←</button>
@@ -162,10 +162,10 @@ export function Header() {
         <div className="h-full w-full px-5 md:px-10 lg:px-20">
 
           {/* ── Desktop layout ─────────────────────────────────────────────── */}
-          <div className="relative hidden h-[58px] items-center md:absolute md:inset-x-0 md:top-5 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-4 lg:gap-8 [&_a]:!text-[var(--color-text-inverse)] [&_button]:!text-[var(--color-text-inverse)]">
+          <div className="relative hidden h-[58px] items-center md:absolute md:inset-x-12 md:top-5 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-4 lg:inset-x-16 lg:gap-8 [&_a]:!text-[var(--color-text-inverse)] [&_button]:!text-[var(--color-text-inverse)]">
 
             {/* Left — primary navigation */}
-            <nav className="flex min-w-0 items-center gap-3 lg:gap-7" aria-label="Main navigation">
+            <nav className="flex min-w-0 items-center gap-3 whitespace-nowrap lg:gap-6" aria-label="Main navigation">
               {NAV_LINKS.map((link) =>
                 link.dropdown ? (
                   <div
@@ -178,7 +178,7 @@ export function Header() {
                       aria-expanded={openDropdown === link.id}
                       aria-haspopup="true"
                       onKeyDown={(e) => handleDropdownKey(e, link.id!)}
-                      className="flex items-center gap-1 text-[13px] lg:text-[15px] tracking-[0.02em] text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none focus-visible:opacity-70"
+                      className="flex items-center gap-1 text-[12px] tracking-[0.02em] text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none focus-visible:opacity-70"
                     >
                       {link.label}
                       <IconChevronDown className={`h-3 w-3 transition-transform duration-150 ${openDropdown === link.id ? 'rotate-180' : ''}`} />
@@ -198,7 +198,7 @@ export function Header() {
                     )}
                   </div>
                 ) : (
-                  <Link key={link.href} href={link.href!} className="text-[13px] lg:text-[15px] tracking-[0.02em] text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70">
+                  <Link key={link.href} href={link.href!} className="text-[12px] tracking-[0.02em] text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70">
                     {link.label}
                   </Link>
                 )
@@ -211,7 +211,7 @@ export function Header() {
             </Link>
 
             {/* Right — utility icons */}
-            <div className="flex items-center justify-end gap-5">
+            <div className="flex items-center justify-end gap-4 lg:gap-5">
               {isSearchOpen && (
                 <form onSubmit={handleSearchSubmit} className="absolute right-32 top-1/2 flex w-[240px] -translate-y-1/2 items-center" role="search">
                   <input
@@ -226,32 +226,41 @@ export function Header() {
                 </form>
               )}
               <button onClick={toggleSearch} aria-label={isSearchOpen ? 'Close search' : 'Search'} className="text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none">
-                {isSearchOpen ? <IconX className="h-5 w-5" /> : <IconSearch className="h-5 w-5" />}
+                {isSearchOpen ? <IconX className="h-5 w-5" /> : <IconSearch className="h-[18px] w-[18px]" />}
               </button>
               <Link href="/account" aria-label="Account" className="text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70">
-                <IconUser className="h-5 w-5" />
+                <IconUser className="h-[18px] w-[18px]" />
               </Link>
               <button onClick={openCart} aria-label={`Cart${itemCount > 0 ? `, ${itemCount} item${itemCount !== 1 ? 's' : ''}` : ''}`} className="relative text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none">
-                <IconBag className="h-5 w-5" />
+                <IconBag className="h-[18px] w-[18px]" />
                 {itemCount > 0 && <span aria-hidden="true" className="absolute -right-2 -top-1.5 flex h-4 min-w-[16px] items-center justify-center bg-[var(--color-accent)] px-[3px] text-[10px] font-medium leading-none text-[color:var(--color-text-inverse)]">{itemCount > 9 ? '9+' : itemCount}</span>}
               </button>
             </div>
           </div>
 
           {/* ── Mobile layout ──────────────────────────────────────────────── */}
-          <div className="flex md:hidden items-center justify-between h-full">
-            <button
-              onClick={() => setIsMobileOpen(true)}
-              aria-label="Open navigation menu"
-              className="text-[color:var(--color-text-inverse)] opacity-100 hover:opacity-70 transition-opacity duration-100 focus:outline-none"
-            >
-              <IconMenu className="w-5 h-5" />
-            </button>
+          <div className="grid h-full grid-cols-3 items-center px-4 md:hidden">
+            <div className="flex items-center gap-5 self-stretch">
+              <button
+                onClick={() => setIsMobileOpen(true)}
+                aria-label="Open navigation menu"
+                className="flex items-center justify-center text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
+              >
+                <IconMenu className="h-[18px] w-[18px]" />
+              </button>
+              <button
+                onClick={toggleSearch}
+                aria-label={isSearchOpen ? 'Close search' : 'Search'}
+                className="flex items-center justify-center text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
+              >
+                {isSearchOpen ? <IconX className="h-[18px] w-[18px]" /> : <IconSearch className="h-[18px] w-[18px]" />}
+              </button>
+            </div>
 
             <Link
               href="/"
               aria-label="OFFLINE home"
-              className="transition-opacity duration-200 hover:opacity-80"
+              className="justify-self-center transition-opacity duration-200 hover:opacity-80"
             >
               <img src="/images/offline-logo-current-transparent.png" alt="OFFLINE" className="h-auto w-24 object-contain" />
             </Link>
@@ -259,9 +268,9 @@ export function Header() {
             <button
               onClick={openCart}
               aria-label={`Cart${itemCount > 0 ? `, ${itemCount} item${itemCount !== 1 ? 's' : ''}` : ''}`}
-              className="relative text-[color:var(--color-text-inverse)] opacity-100 hover:opacity-70 transition-opacity duration-100 focus:outline-none"
+              className="relative flex h-full items-center justify-self-end text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
             >
-              <IconBag className="w-5 h-5" />
+              <IconBag className="h-[18px] w-[18px]" />
               {itemCount > 0 && (
                 <span
                   aria-hidden="true"

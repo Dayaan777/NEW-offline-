@@ -239,7 +239,7 @@ export function Header() {
           </div>
 
           {/* ── Mobile layout ──────────────────────────────────────────────── */}
-          <div className="grid h-full grid-cols-3 items-center px-6 md:hidden">
+          <div className="grid h-full grid-cols-3 items-center px-4 md:hidden">
             <div className="flex items-center gap-5 self-stretch">
               <button
                 onClick={() => setIsMobileOpen(true)}

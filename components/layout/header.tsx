@@ -152,12 +152,12 @@ export function Header() {
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <header
         ref={headerRef}
-        className="absolute inset-x-0 top-0 z-50 h-16 overflow-x-clip border-b border-transparent bg-transparent md:top-10 md:h-[82px]"
+        className="absolute inset-x-0 top-0 z-50 h-24 overflow-x-clip border-b border-transparent bg-transparent md:top-10 md:h-[82px]"
       >
-        <div className="absolute inset-x-0 -top-10 hidden h-10 border-b border-white/10 bg-[#1b1b1b] md:flex md:items-center">
-          <button type="button" aria-label="Previous announcement" className="absolute left-1/2 top-1/2 -translate-x-[320px] -translate-y-1/2 px-2 text-[14px] leading-none text-white/90 transition-opacity hover:opacity-60">←</button>
-          <p className="absolute left-1/2 top-1/2 flex w-max -translate-x-1/2 -translate-y-1/2 items-center text-[11px] font-semibold uppercase tracking-[0.08em] text-white">SALE LIVE NOW. UP TO 50% OFF</p>
-          <button type="button" aria-label="Next announcement" className="absolute left-1/2 top-1/2 translate-x-[320px] -translate-y-1/2 px-2 text-[14px] leading-none text-white/90 transition-opacity hover:opacity-60">→</button>
+        <div className="absolute inset-x-0 top-0 flex h-8 items-center border-b border-white/10 bg-[#1b1b1b] md:-top-10 md:h-10">
+          <button type="button" aria-label="Previous announcement" className="absolute left-1/2 top-1/2 hidden -translate-x-[320px] -translate-y-1/2 px-2 text-[14px] leading-none text-white/90 transition-opacity hover:opacity-60 md:block">←</button>
+          <p className="absolute left-1/2 top-1/2 flex w-max -translate-x-1/2 -translate-y-1/2 items-center text-[9px] font-semibold uppercase tracking-[0.08em] text-white md:text-[11px]">SALE LIVE NOW. UP TO 50% OFF</p>
+          <button type="button" aria-label="Next announcement" className="absolute left-1/2 top-1/2 hidden translate-x-[320px] -translate-y-1/2 px-2 text-[14px] leading-none text-white/90 transition-opacity hover:opacity-60 md:block">→</button>
         </div>
         <div className="h-full w-full px-5 md:px-10 lg:px-20">
 
@@ -239,19 +239,19 @@ export function Header() {
           </div>
 
           {/* ── Mobile layout ──────────────────────────────────────────────── */}
-          <div className="grid h-full grid-cols-3 items-center px-4 md:hidden">
+          <div className="absolute inset-x-0 top-8 grid h-16 grid-cols-3 items-center px-4 md:hidden">
             <div className="flex items-center gap-5 self-stretch">
               <button
                 onClick={() => setIsMobileOpen(true)}
                 aria-label="Open navigation menu"
-                className="flex items-center justify-center text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
+                className="flex translate-x-1 items-center justify-center text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
               >
                 <IconMenu className="h-[18px] w-[18px]" />
               </button>
               <button
                 onClick={toggleSearch}
                 aria-label={isSearchOpen ? 'Close search' : 'Search'}
-                className="flex items-center justify-center text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
+                className="flex translate-x-1 items-center justify-center text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
               >
                 {isSearchOpen ? <IconX className="h-[18px] w-[18px]" /> : <IconSearch className="h-[18px] w-[18px]" />}
               </button>
@@ -268,7 +268,7 @@ export function Header() {
             <button
               onClick={openCart}
               aria-label={`Cart${itemCount > 0 ? `, ${itemCount} item${itemCount !== 1 ? 's' : ''}` : ''}`}
-              className="relative flex h-full items-center justify-self-end text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
+              className="relative flex h-full -translate-x-1 items-center justify-self-end text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
             >
               <IconBag className="h-[18px] w-[18px]" />
               {itemCount > 0 && (

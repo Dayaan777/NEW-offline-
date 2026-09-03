@@ -239,14 +239,23 @@ export function Header() {
           </div>
 
           {/* ── Mobile layout ──────────────────────────────────────────────── */}
-          <div className="flex h-full items-center justify-between px-1 md:hidden">
-            <button
-              onClick={() => setIsMobileOpen(true)}
-              aria-label="Open navigation menu"
-              className="text-[color:var(--color-text-inverse)] opacity-100 hover:opacity-70 transition-opacity duration-100 focus:outline-none"
-            >
-              <IconMenu className="h-[18px] w-[18px]" />
-            </button>
+          <div className="flex h-full items-center justify-between md:hidden">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setIsMobileOpen(true)}
+                aria-label="Open navigation menu"
+                className="flex items-center justify-center text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
+              >
+                <IconMenu className="h-[18px] w-[18px]" />
+              </button>
+              <button
+                onClick={toggleSearch}
+                aria-label={isSearchOpen ? 'Close search' : 'Search'}
+                className="flex items-center justify-center text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
+              >
+                {isSearchOpen ? <IconX className="h-[18px] w-[18px]" /> : <IconSearch className="h-[18px] w-[18px]" />}
+              </button>
+            </div>
 
             <Link
               href="/"

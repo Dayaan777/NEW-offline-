@@ -162,10 +162,10 @@ export function Header() {
         <div className="h-full w-full px-5 md:px-10 lg:px-20">
 
           {/* ── Desktop layout ─────────────────────────────────────────────── */}
-          <div className="relative hidden h-[58px] items-center md:absolute md:inset-x-0 md:top-5 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-4 lg:gap-8 [&_a]:!text-[var(--color-text-inverse)] [&_button]:!text-[var(--color-text-inverse)]">
+          <div className="relative hidden h-[58px] items-center md:absolute md:inset-x-12 md:top-5 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-4 lg:inset-x-16 lg:gap-8 [&_a]:!text-[var(--color-text-inverse)] [&_button]:!text-[var(--color-text-inverse)]">
 
             {/* Left — primary navigation */}
-            <nav className="flex min-w-0 items-center gap-3 lg:gap-7" aria-label="Main navigation">
+            <nav className="flex min-w-0 items-center gap-3 whitespace-nowrap lg:gap-6" aria-label="Main navigation">
               {NAV_LINKS.map((link) =>
                 link.dropdown ? (
                   <div
@@ -178,7 +178,7 @@ export function Header() {
                       aria-expanded={openDropdown === link.id}
                       aria-haspopup="true"
                       onKeyDown={(e) => handleDropdownKey(e, link.id!)}
-                      className="flex items-center gap-1 text-[13px] lg:text-[15px] tracking-[0.02em] text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none focus-visible:opacity-70"
+                      className="flex items-center gap-1 text-[12px] tracking-[0.02em] text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none focus-visible:opacity-70"
                     >
                       {link.label}
                       <IconChevronDown className={`h-3 w-3 transition-transform duration-150 ${openDropdown === link.id ? 'rotate-180' : ''}`} />
@@ -198,7 +198,7 @@ export function Header() {
                     )}
                   </div>
                 ) : (
-                  <Link key={link.href} href={link.href!} className="text-[13px] lg:text-[15px] tracking-[0.02em] text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70">
+                  <Link key={link.href} href={link.href!} className="text-[12px] tracking-[0.02em] text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70">
                     {link.label}
                   </Link>
                 )
@@ -211,7 +211,7 @@ export function Header() {
             </Link>
 
             {/* Right — utility icons */}
-            <div className="flex items-center justify-end gap-5">
+            <div className="flex items-center justify-end gap-4 lg:gap-5">
               {isSearchOpen && (
                 <form onSubmit={handleSearchSubmit} className="absolute right-32 top-1/2 flex w-[240px] -translate-y-1/2 items-center" role="search">
                   <input
@@ -226,13 +226,13 @@ export function Header() {
                 </form>
               )}
               <button onClick={toggleSearch} aria-label={isSearchOpen ? 'Close search' : 'Search'} className="text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none">
-                {isSearchOpen ? <IconX className="h-5 w-5" /> : <IconSearch className="h-5 w-5" />}
+                {isSearchOpen ? <IconX className="h-5 w-5" /> : <IconSearch className="h-[18px] w-[18px]" />}
               </button>
               <Link href="/account" aria-label="Account" className="text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70">
-                <IconUser className="h-5 w-5" />
+                <IconUser className="h-[18px] w-[18px]" />
               </Link>
               <button onClick={openCart} aria-label={`Cart${itemCount > 0 ? `, ${itemCount} item${itemCount !== 1 ? 's' : ''}` : ''}`} className="relative text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none">
-                <IconBag className="h-5 w-5" />
+                <IconBag className="h-[18px] w-[18px]" />
                 {itemCount > 0 && <span aria-hidden="true" className="absolute -right-2 -top-1.5 flex h-4 min-w-[16px] items-center justify-center bg-[var(--color-accent)] px-[3px] text-[10px] font-medium leading-none text-[color:var(--color-text-inverse)]">{itemCount > 9 ? '9+' : itemCount}</span>}
               </button>
             </div>

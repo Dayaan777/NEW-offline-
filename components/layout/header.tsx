@@ -239,7 +239,7 @@ export function Header() {
           </div>
 
           {/* ── Mobile layout ──────────────────────────────────────────────── */}
-          <div className="flex h-full items-center justify-between md:hidden">
+          <div className="grid h-full grid-cols-3 items-center px-6 md:hidden">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setIsMobileOpen(true)}
@@ -260,7 +260,7 @@ export function Header() {
             <Link
               href="/"
               aria-label="OFFLINE home"
-              className="transition-opacity duration-200 hover:opacity-80"
+              className="justify-self-center transition-opacity duration-200 hover:opacity-80"
             >
               <img src="/images/offline-logo-current-transparent.png" alt="OFFLINE" className="h-auto w-24 object-contain" />
             </Link>

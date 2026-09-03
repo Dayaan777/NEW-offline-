@@ -63,7 +63,7 @@ export default function RootLayout({
             <Header />
 
             {/* Page content — offset for fixed header */}
-            <main className="min-h-[calc(100dvh-60px)] pt-[60px]">
+            <main className="min-h-[calc(100dvh-60px)] pt-24 md:pt-[60px]">
               {children}
             </main>
 

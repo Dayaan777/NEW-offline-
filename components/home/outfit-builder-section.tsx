@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Check, Plus, ShoppingBag, X } from 'lucide-react'
 import { products } from '@/lib/data/products'
 import { useCart } from '@/context/cart-context'
@@ -45,12 +45,14 @@ export function OutfitBuilderSection() {
   const [tryOnImage, setTryOnImage] = useState('/images/shop-the-look-placeholder.png')
   const [isGenerating, setIsGenerating] = useState(false)
   const [tryOnError, setTryOnError] = useState<string | null>(null)
+  const generationId = useRef(0)
   const active = tabs.find((tab) => tab.id === activeTab) ?? tabs[0]
   const options = useMemo(() => products.filter((product) => product.category === active.category).slice(0, 4), [active.category])
 
   const toggleProduct = async (product: Product) => {
     const isSelected = selected.some((item) => item.id === product.id)
     setSelected((current) => isSelected ? current.filter((item) => item.id !== product.id) : [...current, product])
+    const requestId = ++generationId.current
     if (isSelected) return
 
     setIsGenerating(true)
@@ -66,11 +68,13 @@ export function OutfitBuilderSection() {
       const response = await fetch('/api/virtual-tryon', { method: 'POST', body: formData })
       const data = await response.json()
       if (!response.ok) throw new Error(data.error ?? 'Virtual try-on failed.')
-      setTryOnImage(data.imageUrl)
+      if (requestId === generationId.current) setTryOnImage(data.imageUrl)
     } catch (error) {
-      setTryOnError(error instanceof Error ? error.message : 'Virtual try-on failed.')
+      if (requestId === generationId.current) {
+        setTryOnError(error instanceof Error ? error.message : 'Virtual try-on failed.')
+      }
     } finally {
-      setIsGenerating(false)
+      if (requestId === generationId.current) setIsGenerating(false)
     }
   }
 

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { DM_Sans, Instrument_Serif } from 'next/font/google'
+import { DM_Sans, Instrument_Serif, Crimson_Text, Montserrat } from 'next/font/google'
 import { CartProvider } from '@/context/cart-context'
 import { WishlistProvider } from '@/context/wishlist-context'
 import { Header } from '@/components/layout/header'
@@ -20,6 +20,20 @@ const instrumentSerif = Instrument_Serif({
   weight: ['400'],
   style: ['normal', 'italic'],
   variable: '--font-editorial',
+  display: 'swap',
+})
+
+const crimsonText = Crimson_Text({
+  subsets: ['latin'],
+  weight: ['400', '600'],
+  variable: '--font-crimson',
+  display: 'swap',
+})
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['300'],
+  variable: '--font-montserrat',
   display: 'swap',
 })
 
@@ -54,7 +68,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${instrumentSerif.variable}`}
+      className={`${dmSans.variable} ${instrumentSerif.variable} ${crimsonText.variable} ${montserrat.variable}`}
     >
       <body>
         <CartProvider>

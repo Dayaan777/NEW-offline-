@@ -290,8 +290,8 @@ export function Header() {
                         <div key={col.title} className="flex flex-col gap-3">
                           <span className="text-[11px] tracking-[0.08em] text-[var(--color-text-tertiary)]">{col.title}</span>
                           <ul className="flex flex-col gap-2.5">
-                            {col.items.map((item) => (
-                              <li key={item.href}>
+                            {col.items.map((item, itemIndex) => (
+                              <li key={`${col.title}-${item.label}-${itemIndex}`}>
                                 <Link
                                   href={item.href}
                                   role="menuitem"

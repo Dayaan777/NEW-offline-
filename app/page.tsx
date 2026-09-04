@@ -5,12 +5,14 @@ import { MaterialsSection } from '@/components/home/materials-section'
 import { EditorialSection } from '@/components/home/editorial-section'
 import { FinalCtaSection } from '@/components/home/final-cta-section'
 import { CategoryTileGrid } from '@/components/home/category-tile-grid'
+import { GenderSplitBanner } from '@/components/home/gender-split-banner'
 
 export default function HomePage() {
   return (
     <>
       <HomeHero />
       <CategoryTileGrid />
+      <GenderSplitBanner />
       <FeaturedProductsSection />
       <ContextsSection />
       <MaterialsSection />

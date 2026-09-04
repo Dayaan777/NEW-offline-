@@ -37,7 +37,7 @@ const categories: CategoryTile[] = [
     href: '/collections/hoodie',
   },
   {
-    name: 'TROUSERS',
+    name: 'PANTS',
     image: '/images/categories/trousers.png',
     href: '/collections/trousers',
   },
@@ -48,7 +48,7 @@ export function CategoryTileGrid() {
 
   return (
     <section className="w-full border-t-4 border-white bg-background py-10 md:py-14">
-      <div className="mx-auto max-w-7xl px-4 md:px-6">
+      <div className="w-full">
         <div
           className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6 md:gap-3"
           onMouseLeave={() => setHoveredIndex(null)}

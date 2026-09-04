@@ -4,11 +4,13 @@ import { FeaturedProductsSection } from '@/components/home/featured-products-sec
 import { MaterialsSection } from '@/components/home/materials-section'
 import { EditorialSection } from '@/components/home/editorial-section'
 import { FinalCtaSection } from '@/components/home/final-cta-section'
+import { ProductCarouselSection } from '@/components/home/product-carousel-section'
 
 export default function HomePage() {
   return (
     <>
       <HomeHero />
+      <ProductCarouselSection />
       <FeaturedProductsSection />
       <ContextsSection />
       <MaterialsSection />

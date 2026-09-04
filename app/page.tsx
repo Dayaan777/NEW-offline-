@@ -5,7 +5,6 @@ import { EditorialSection } from '@/components/home/editorial-section'
 import { FinalCtaSection } from '@/components/home/final-cta-section'
 import { CategoryTileGrid } from '@/components/home/category-tile-grid'
 import { GenderSplitBanner } from '@/components/home/gender-split-banner'
-import { OutfitBuilderSection } from '@/components/home/outfit-builder-section'
 
 export default function HomePage() {
   return (
@@ -13,7 +12,6 @@ export default function HomePage() {
       <HomeHero />
       <CategoryTileGrid />
       <GenderSplitBanner />
-      <OutfitBuilderSection />
       <FeaturedProductsSection />
       <MaterialsSection />
       <EditorialSection />

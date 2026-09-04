@@ -11,8 +11,8 @@ type Slide =
 const SLIDES: Slide[] = [
   {
     type: 'image',
-    src: '/images/desktop-hero-fitted-elegance.jpg',
-    alt: "A man and woman in navy tailored suits facing each other, with the text 'A New Era of Fitted Elegance'",
+    src: '/images/summer-26.jpg',
+    alt: "A man in sunglasses wearing a light ribbed polo by the sea with large 'SUMMER ’26' campaign text",
   },
   { type: 'split-video', leftSrc: '/videos/desktop-hero-clip-1.mp4', rightSrc: '/videos/desktop-hero-clip-2.mp4' },
   { type: 'split-video', leftSrc: '/videos/desktop-hero-clip-3.mp4', rightSrc: '/videos/desktop-hero-clip-1.mp4' },

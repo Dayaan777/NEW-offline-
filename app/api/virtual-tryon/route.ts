@@ -11,12 +11,22 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'HUGGINGFACE_TOKEN is not configured.' }, { status: 500 })
   }
 
-  const formData = await request.formData()
+  let formData: FormData
+  try {
+    formData = await request.formData()
+  } catch {
+    return NextResponse.json({ error: 'Send a multipart form with personImage and garmentImage files.' }, { status: 400 })
+  }
+
   const personImage = formData.get('personImage')
   const garmentImage = formData.get('garmentImage')
 
   if (!(personImage instanceof File) || !(garmentImage instanceof File)) {
     return NextResponse.json({ error: 'personImage and garmentImage are required image files.' }, { status: 400 })
+  }
+
+  if (!personImage.type.startsWith('image/') || !garmentImage.type.startsWith('image/')) {
+    return NextResponse.json({ error: 'personImage and garmentImage must both be image files.' }, { status: 400 })
   }
 
   try {

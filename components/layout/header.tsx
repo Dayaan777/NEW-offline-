@@ -17,39 +17,93 @@ import {
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 
-type DropdownId = 'clothing' | 'collections'
+type MegaId = 'men' | 'women'
 
-type DropdownItem = { label: string; href: string } | { divider: true }
+type MegaColumn = {
+  title: string
+  items: { label: string; href: string }[]
+}
+
+type MegaFeatured = {
+  name: string
+  price: number
+  originalPrice?: number
+  image: string
+  href: string
+}
+
+type MegaMenu = { columns: MegaColumn[]; featured: MegaFeatured[] }
 
 type NavLink =
-  | { label: string; id: DropdownId; href?: never; dropdown: DropdownItem[] }
-  | { label: string; href: string; id?: never; dropdown?: never }
+  | { label: string; type: 'mega'; id: MegaId; mega: MegaMenu; href?: never }
+  | { label: string; type: 'link'; href: string; id?: never; mega?: never }
+
+const MEGA_MENUS: Record<MegaId, MegaMenu> = {
+  men: {
+    columns: [
+      {
+        title: 'SHOP',
+        items: [
+          { label: 'Ground', href: '/shop/ground' },
+          { label: 'Field', href: '/shop/field' },
+          { label: 'Floor', href: '/shop/floor' },
+          { label: 'Track', href: '/shop/track' },
+          { label: 'View all', href: '/shop' },
+        ],
+      },
+      {
+        title: 'COLLECTIONS',
+        items: [
+          { label: 'New releases', href: '/shop/new' },
+          { label: 'Best sellers', href: '/shop' },
+          { label: 'The brand', href: '/brand' },
+          { label: 'View all', href: '/shop' },
+        ],
+      },
+    ],
+    featured: [
+      { name: 'Farrow', price: 39500, image: '/images/products/farrow/editorial.png', href: '/product/farrow' },
+      { name: 'Margin — Off-white', price: 29500, image: '/images/products/margin/off-white/01.png', href: '/product/margin' },
+    ],
+  },
+  women: {
+    columns: [
+      {
+        title: 'SHOP',
+        items: [
+          { label: 'Ground', href: '/shop/ground' },
+          { label: 'Field', href: '/shop/field' },
+          { label: 'Floor', href: '/shop/floor' },
+          { label: 'Track', href: '/shop/track' },
+          { label: 'View all', href: '/shop' },
+        ],
+      },
+      {
+        title: 'COLLECTIONS',
+        items: [
+          { label: 'New releases', href: '/shop/new' },
+          { label: 'Best sellers', href: '/shop' },
+          { label: 'The brand', href: '/brand' },
+          { label: 'View all', href: '/shop' },
+        ],
+      },
+    ],
+    featured: [
+      { name: 'Croft', price: 18500, image: '/images/products/croft/editorial.png', href: '/product/croft' },
+      { name: 'Weld', price: 26000, image: '/images/products/weld/editorial.png', href: '/product/weld' },
+    ],
+  },
+}
 
 const NAV_LINKS: NavLink[] = [
-  { label: 'MEN', href: '/shop/new' },
-  {
-    label: 'WOMEN',
-    id: 'clothing',
-    dropdown: [
-      { label: 'Ground', href: '/shop/ground' },
-      { label: 'Field', href: '/shop/field' },
-      { label: 'Floor', href: '/shop/floor' },
-      { label: 'Track', href: '/shop/track' },
-    ],
-  },
-  {
-    label: 'HOME',
-    id: 'collections',
-    dropdown: [
-      { label: 'Shop all', href: '/shop' },
-      { label: 'New arrivals', href: '/shop/new' },
-      { divider: true },
-      { label: 'The brand', href: '/brand' },
-    ],
-  },
-  { label: 'SHOES', href: '/shop/floor' },
-  { label: 'NEW RELEASES', href: '/shop/new' },
+  { label: 'MEN', type: 'mega', id: 'men', mega: MEGA_MENUS.men },
+  { label: 'WOMEN', type: 'mega', id: 'women', mega: MEGA_MENUS.women },
+  { label: 'HOME', type: 'link', href: '/shop' },
+  { label: 'SHOES', type: 'link', href: '/shop/floor' },
+  { label: 'NEW RELEASES', type: 'link', href: '/shop/new' },
 ]
+
+const formatPrice = (cents: number) => `$${(cents / 100).toFixed(2)}`
 
 const MOBILE_LINKS = [
   { label: 'MEN', href: '/shop/new' },
@@ -67,7 +121,7 @@ export function Header() {
   const { itemCount, openCart } = useCart()
   const { itemCount: wishlistCount } = useWishlist()
 
-  const [openDropdown, setOpenDropdown] = useState<DropdownId | null>(null)
+  const [openMegaMenu, setOpenMegaMenu] = useState<MegaId | null>(null)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
@@ -81,7 +135,7 @@ export function Header() {
   useEffect(() => {
     setIsMobileOpen(false)
     setIsSearchOpen(false)
-    setOpenDropdown(null)
+    setOpenMegaMenu(null)
     setSearchQuery('')
   }, [pathname])
 
@@ -104,11 +158,11 @@ export function Header() {
     if (isSearchOpen) searchInputRef.current?.focus()
   }, [isSearchOpen])
 
-  // Close dropdown on outside click
+  // Close mega menu on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
-        setOpenDropdown(null)
+        setOpenMegaMenu(null)
       }
     }
     document.addEventListener('mousedown', handler)
@@ -121,7 +175,7 @@ export function Header() {
       if (e.key === 'Escape') {
         if (isSearchOpen) { setIsSearchOpen(false); setSearchQuery('') }
         if (isMobileOpen) setIsMobileOpen(false)
-        setOpenDropdown(null)
+        setOpenMegaMenu(null)
       }
     }
     document.addEventListener('keydown', handler)
@@ -141,17 +195,17 @@ export function Header() {
     [router, searchQuery]
   )
 
-  const handleDropdownKey = (e: React.KeyboardEvent, id: DropdownId) => {
+  const handleMegaMenuKey = (e: React.KeyboardEvent, id: MegaId) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
-      setOpenDropdown((prev) => (prev === id ? null : id))
+      setOpenMegaMenu((prev) => (prev === id ? null : id))
     }
   }
 
   const toggleSearch = () => {
     setIsSearchOpen((v) => !v)
     setSearchQuery('')
-    setOpenDropdown(null)
+    setOpenMegaMenu(null)
   }
 
   // ─── Render ─────────────────────────────────────────────────────────────────
@@ -180,43 +234,107 @@ export function Header() {
             {/* Left — primary navigation */}
             <nav className="flex min-w-0 items-center gap-3 whitespace-nowrap lg:gap-6" aria-label="Main navigation">
               {NAV_LINKS.map((link) =>
-                link.dropdown ? (
+                link.type === 'mega' ? (
                   <div
                     key={link.id}
                     className="relative"
-                    onMouseEnter={() => setOpenDropdown(link.id!)}
-                    onMouseLeave={() => setOpenDropdown(null)}
+                    onMouseEnter={() => setOpenMegaMenu(link.id)}
+                    onMouseLeave={() => setOpenMegaMenu(null)}
                   >
                     <button
-                      aria-expanded={openDropdown === link.id}
+                      aria-expanded={openMegaMenu === link.id}
                       aria-haspopup="true"
-                      onKeyDown={(e) => handleDropdownKey(e, link.id!)}
+                      onKeyDown={(e) => handleMegaMenuKey(e, link.id)}
                       className="flex items-center gap-1 text-[12px] tracking-[0.02em] text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none focus-visible:opacity-70"
                     >
                       {link.label}
-                      <IconChevronDown className={`h-3 w-3 transition-transform duration-150 ${openDropdown === link.id ? 'rotate-180' : ''}`} />
+                      <IconChevronDown className={`h-3 w-3 transition-transform duration-150 ${openMegaMenu === link.id ? 'rotate-180' : ''}`} />
                     </button>
-                    {openDropdown === link.id && (
-                      <div className="absolute left-1/2 top-[calc(100%+1px)] min-w-[168px] -translate-x-1/2 border border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] py-2 shadow-[var(--shadow-overlay)]" role="menu">
-                        {link.dropdown.map((item, i) =>
-                          'divider' in item ? (
-                            <div key={i} className="mx-4 my-1 h-px bg-[var(--color-border-subtle)]" role="separator" />
-                          ) : (
-                            <Link key={item.href} href={item.href} role="menuitem" onClick={() => setOpenDropdown(null)} className="block px-5 py-2 text-[14px] text-[var(--color-text-secondary)] transition-colors duration-100 hover:bg-[var(--color-bg-secondary)] hover:text-[color:var(--color-text-inverse)]">
-                              {item.label}
-                            </Link>
-                          )
-                        )}
-                      </div>
-                    )}
                   </div>
                 ) : (
-                  <Link key={link.href} href={link.href!} className="text-[12px] tracking-[0.02em] text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70">
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onMouseEnter={() => setOpenMegaMenu(null)}
+                    className="group/navlink relative py-1 text-[12px] tracking-[0.02em] text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-90"
+                  >
                     {link.label}
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-[color:var(--color-text-inverse)] transition-transform duration-300 ease-out group-hover/navlink:scale-x-100"
+                    />
                   </Link>
                 )
               )}
             </nav>
+
+            {/* Mega menu panel — full-width, spans below the entire header */}
+            {(['men', 'women'] as MegaId[]).map((id) => {
+              const menu = MEGA_MENUS[id]
+              return (
+                <div
+                  key={id}
+                  onMouseEnter={() => setOpenMegaMenu(id)}
+                  onMouseLeave={() => setOpenMegaMenu(null)}
+                  className={`fixed inset-x-0 top-[104px] z-40 border-t border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] shadow-[var(--shadow-overlay)] transition-all duration-200 ease-out md:top-[132px] ${
+                    openMegaMenu === id
+                      ? 'pointer-events-auto translate-y-0 opacity-100'
+                      : 'pointer-events-none -translate-y-1 opacity-0'
+                  }`}
+                  role="menu"
+                  aria-label={`${id} menu`}
+                >
+                  <div className="mx-auto flex max-w-[1200px] items-start gap-16 px-10 py-10 lg:px-16">
+                    <div className="flex flex-1 gap-16">
+                      {menu.columns.map((col) => (
+                        <div key={col.title} className="flex flex-col gap-3">
+                          <span className="text-[11px] tracking-[0.08em] text-[var(--color-text-tertiary)]">{col.title}</span>
+                          <ul className="flex flex-col gap-2.5">
+                            {col.items.map((item) => (
+                              <li key={item.href}>
+                                <Link
+                                  href={item.href}
+                                  role="menuitem"
+                                  onClick={() => setOpenMegaMenu(null)}
+                                  className="text-[13px] tracking-[0.01em] text-[var(--color-text-secondary)] transition-colors duration-100 hover:text-[color:var(--color-text-primary)]"
+                                >
+                                  {item.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex flex-shrink-0 gap-6">
+                      {menu.featured.map((product) => (
+                        <Link
+                          key={product.href}
+                          href={product.href}
+                          onClick={() => setOpenMegaMenu(null)}
+                          className="group/product w-[168px] flex-shrink-0"
+                        >
+                          <div className="aspect-[4/5] w-full overflow-hidden bg-[var(--color-bg-secondary)]">
+                            <img
+                              src={product.image || '/placeholder.svg'}
+                              alt={product.name}
+                              className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover/product:scale-105"
+                            />
+                          </div>
+                          <p className="mt-3 text-[13px] text-[var(--color-text-primary)]">{product.name}</p>
+                          <p className="mt-0.5 flex items-center gap-2 text-[13px]">
+                            <span className="text-[var(--color-text-secondary)]">{formatPrice(product.price)}</span>
+                            {product.originalPrice && (
+                              <span className="text-[var(--color-text-tertiary)] line-through">{formatPrice(product.originalPrice)}</span>
+                            )}
+                          </p>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
 
             {/* Center — independent wordmark */}
             <Link href="/" aria-label="OFFLINE home" className="group justify-self-center transition-opacity duration-200 hover:opacity-80">

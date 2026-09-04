@@ -8,7 +8,15 @@ import { useWishlist } from '@/context/wishlist-context'
 import type { Product, WishlistItem } from '@/lib/types'
 
 const FEATURED = ['margin', 'farrow', 'croft', 'weld']
-const imageFor = (slug: string) => `/images/products/${slug}/featured.png`
+
+const FEATURED_IMAGES: Record<string, string> = {
+  margin: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_uay5yruay5yruay5-b37btlmghwNMRA8HtpdBh5DbBkaeC7.jpg',
+  farrow: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_809pib809pib809p-7H6hyiKS8lb5nSdOdM99xVJN0ygmL5.jpg',
+  croft: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_o90p22o90p22o90p-hwjkTH7LWN5RLTW3K3wx1XB76qv8Ac.jpg',
+  weld: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/a06b94c8-d66e-4a7e-b098-6e80b01cdc01-itmDs9Ytcp8HBq25cn4RPFIOkK1zQR.jpg',
+}
+
+const imageFor = (slug: string) => FEATURED_IMAGES[slug] ?? `/images/products/${slug}/featured.png`
 
 export function FeaturedProductsSection() {
   const { isSaved, toggleItem } = useWishlist()

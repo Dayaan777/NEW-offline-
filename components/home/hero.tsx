@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { DesktopHeroCarousel } from '@/components/home/desktop-hero-carousel'
 import { MobileHeroCarousel } from '@/components/home/mobile-hero-carousel'
 
 export function HomeHero() {
@@ -9,17 +9,9 @@ export function HomeHero() {
       <div className="absolute inset-0 md:hidden">
         <MobileHeroCarousel />
       </div>
-      <picture className="hidden md:block">
-        <source media="(min-width: 768px)" srcSet="/images/desktop-hero-fitted-elegance.jpg" />
-        <Image
-          src="/images/desktop-hero-fitted-elegance.jpg"
-          alt="A man and woman in navy tailored suits facing each other, with the text 'A New Era of Fitted Elegance'"
-          fill
-          priority
-          className="object-cover object-[center_50%]"
-          sizes="100vw"
-        />
-      </picture>
+      <div className="absolute inset-0 hidden md:block">
+        <DesktopHeroCarousel />
+      </div>
       <div className="absolute inset-0 bg-black/5 md:block" aria-hidden="true" />
     </section>
   )

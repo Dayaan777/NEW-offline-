@@ -8,7 +8,7 @@ import { useWishlist } from '@/context/wishlist-context'
 import type { Product, WishlistItem } from '@/lib/types'
 
 const FEATURED = ['margin', 'farrow', 'croft', 'weld']
-const imageFor = (slug: string) => slug === 'margin' ? '/images/products/margin/off-white/01.png' : `/images/products/${slug}/editorial.png`
+const imageFor = (slug: string) => `/images/products/${slug}/featured.png`
 
 export function FeaturedProductsSection() {
   const { isSaved, toggleItem } = useWishlist()
@@ -19,7 +19,6 @@ export function FeaturedProductsSection() {
     <section aria-labelledby="featured-products-heading" className="bg-[var(--color-bg-primary)]">
       <div className="container py-16 md:py-24">
         <header className="mx-auto mb-12 max-w-xl text-center md:mb-16">
-          <p className="label-category mb-3 text-[var(--color-text-muted)]">The edit</p>
           <h2 id="featured-products-heading" className="text-[1.65rem] font-light tracking-[-0.02em] text-[var(--color-text-primary)] md:text-[2.15rem]">Featured Collection</h2>
           <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[var(--color-text-secondary)]">Essential silhouettes selected for everyday movement.</p>
           <Link href="/shop" className="mt-6 inline-flex border border-[var(--color-border-default)] px-5 py-3 text-[0.65rem] font-medium tracking-[0.24em] text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg-primary)]">VIEW ALL</Link>

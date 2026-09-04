@@ -26,10 +26,9 @@ export function FeaturedProductsSection() {
   return (
     <section aria-labelledby="featured-products-heading" className="bg-[var(--color-bg-primary)]">
       <div className="container py-16 md:py-24">
-        <header className="mx-auto mb-16 flex w-full max-w-none flex-col items-center text-center md:mb-20">
+        <header className="mx-auto mb-24 flex w-full max-w-none flex-col items-center text-center md:mb-32">
           <h2 id="featured-products-heading" className="text-[1.05rem] font-normal uppercase tracking-[0.02em] text-[var(--color-text-primary)] md:text-[1.15rem]">Featured Collection</h2>
-          <p className="mt-2 text-[0.68rem] font-normal uppercase tracking-[0.18em] text-[var(--color-text-secondary)]">Essential silhouettes</p>
-          <Link href="/shop" className="mt-4 inline-flex border border-[var(--color-border-default)] px-4 py-2 text-[0.62rem] font-normal tracking-[0.28em] text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg-primary)]">VIEW ALL</Link>
+          <Link href="/shop" className="mt-5 inline-flex border border-[var(--color-border-default)] px-4 py-2 text-[0.62rem] font-normal tracking-[0.28em] text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg-primary)]">VIEW ALL</Link>
         </header>
         <div className="grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4 md:gap-x-5">
           {featured.map((product) => {
@@ -46,8 +45,8 @@ export function FeaturedProductsSection() {
                   </Link>
                   <button type="button" onClick={() => toggleItem(item)} aria-pressed={saved} aria-label={`${saved ? 'Remove' : 'Save'} ${product.name}`} className="absolute right-3 top-3 flex size-8 items-center justify-center bg-[var(--color-bg-primary)]/90 text-[var(--color-text-primary)] hover:bg-[var(--color-accent)] hover:text-white">{saved ? '−' : '+'}</button>
                 </div>
-                <div className="pt-4 text-center">
-                  <h3 className="text-[0.62rem] font-normal uppercase tracking-[0.24em] text-[var(--color-text-primary)]"><Link href={href}>{product.name}</Link></h3>
+                <div className="pt-7 text-center">
+                  <h3 className="text-[0.62rem] font-light uppercase tracking-[0.24em] text-[var(--color-text-primary)]"><Link href={href}>{product.name}</Link></h3>
                   <p className="mt-1 text-[0.66rem] font-normal tracking-[0.12em] text-[var(--color-text-primary)]">Rs.{Math.round(product.price / 100).toLocaleString('en-IN')}</p>
                   <div className="mt-4 flex justify-center gap-2" aria-label={`Available sizes for ${product.name}`}>
                     {['S', 'M', 'L', 'XL'].map((size) => {

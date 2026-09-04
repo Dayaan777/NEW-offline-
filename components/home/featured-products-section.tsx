@@ -33,7 +33,7 @@ export function FeaturedProductsSection() {
               <article key={product.id} className="group min-w-0">
                 <div className="relative">
                   <Link href={href} className="relative block aspect-[4/5] overflow-hidden bg-[var(--color-bg-tertiary)]" aria-label={`View ${product.name}`}>
-                    <Image src={imageFor(product.slug, variant.images[0]?.src || '/images/products/margin/off-white/01.jpg')} alt={`${product.name} footwear`} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" sizes="(max-width: 768px) 50vw, 25vw" />
+                    <Image src={imageFor(product.slug)} alt={`${product.name} footwear`} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" sizes="(max-width: 768px) 50vw, 25vw" />
                   </Link>
                   <button type="button" onClick={() => toggleItem(item)} aria-pressed={saved} aria-label={`${saved ? 'Remove' : 'Save'} ${product.name}`} className="absolute right-3 top-3 flex size-8 items-center justify-center bg-[var(--color-bg-primary)]/90 text-[var(--color-text-primary)] hover:bg-[var(--color-accent)] hover:text-white">{saved ? '−' : '+'}</button>
                 </div>

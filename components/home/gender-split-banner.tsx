@@ -5,8 +5,18 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 const sides = [
-  { label: 'MEN', href: '/collections/men', image: '/images/summer-26.jpg', position: 'object-[72%_center]' },
-  { label: 'WOMEN', href: '/collections/women', image: '/images/offline-hero-latest.png', position: 'object-center' },
+  {
+    label: 'MEN',
+    href: '/collections/men',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_40eds040eds040ed-E60vOuys9wb5jI2jvob1ku2of1dMnV.jpg',
+    position: 'object-center',
+  },
+  {
+    label: 'WOMEN',
+    href: '/collections/women',
+    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gemini_Generated_Image_gsg2udgsg2udgsg200-JPHDQ9QfHSYSjn6PQ8N0J6jDzRONBb.jpg',
+    position: 'object-center',
+  },
 ]
 
 export function GenderSplitBanner() {

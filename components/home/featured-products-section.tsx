@@ -27,8 +27,8 @@ export function FeaturedProductsSection() {
     <section aria-labelledby="featured-products-heading" className="bg-[var(--color-bg-primary)]">
       <div className="container py-16 md:py-24">
         <header className="mx-auto mb-14 flex w-full max-w-none flex-col items-center text-center md:mb-[56px]">
-          <h2 id="featured-products-heading" className="font-[family-name:var(--font-crimson)] text-[1.3rem] font-normal uppercase tracking-[0.02em] text-[var(--color-text-primary)] md:text-[1.45rem]">Featured Collection</h2>
-          <Link href="/shop" className="mt-4 inline-flex border border-[var(--color-border-default)] px-4 py-2 text-[0.62rem] font-normal tracking-[0.28em] text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg-primary)]">VIEW ALL</Link>
+          <h2 id="featured-products-heading" className="font-[family-name:var(--font-crimson)] text-[1.3rem] font-normal uppercase tracking-[0.02em] text-[var(--color-text-primary)] md:text-[1.45rem] pb-[7px]">Featured Collection</h2>
+          <Link href="/shop" className="mt-4 inline-flex border border-[var(--color-border-default)] px-4 py-2 text-[0.62rem] font-normal tracking-[0.28em] text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg-primary)] font-[family-name:var(--font-montserrat)] pb-[10px] h-[24.3594px] mb-4">VIEW ALL</Link>
         </header>
         <div className="grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4 md:gap-x-5">
           {featured.map((product) => {
@@ -46,13 +46,13 @@ export function FeaturedProductsSection() {
                   <button type="button" onClick={() => toggleItem(item)} aria-pressed={saved} aria-label={`${saved ? 'Remove' : 'Save'} ${product.name}`} className="absolute right-3 top-3 flex size-8 items-center justify-center bg-[var(--color-bg-primary)]/90 text-[var(--color-text-primary)] hover:bg-[var(--color-accent)] hover:text-white">{saved ? '−' : '+'}</button>
                 </div>
                 <div className="mt-7 text-center">
-                  <h3 className="font-[family-name:var(--font-montserrat)] text-[0.62rem] font-light uppercase tracking-[0.24em] text-[var(--color-text-primary)]"><Link href={href}>{product.name}</Link></h3>
-                  <p className="mt-1.5 text-[0.66rem] font-normal tracking-[0.12em] text-[var(--color-text-primary)]">Rs.{Math.round(product.price / 100).toLocaleString('en-IN')}</p>
+                  <h3 className="font-[family-name:var(--font-montserrat)] text-[0.62rem] font-light uppercase tracking-[0.24em] text-[var(--color-text-primary)]"><Link href={href} className="font-[family-name:var(--font-montserrat)] text-base">{product.name}</Link></h3>
+                  <p className="mt-1.5 text-[0.66rem] font-normal tracking-[0.12em] text-[var(--color-text-primary)] font-[family-name:var(--font-montserrat)] text-[10px]">Rs.{Math.round(product.price / 100).toLocaleString('en-IN')}</p>
                   <div className="mt-5 flex justify-center gap-2" aria-label={`Available sizes for ${product.name}`}>
                     {['S', 'M', 'L', 'XL'].map((size) => {
                       const available = availableSizes.length > 0 && (size === 'S' || size === 'M' || size === 'L' || size === 'XL')
                       const selected = selectedSizes[product.id] === size
-                      return <button key={size} type="button" disabled={!available} onClick={() => setSelectedSizes((current) => ({ ...current, [product.id]: size }))} aria-pressed={selected} aria-label={`${available ? 'Select' : 'Unavailable'} size ${size}`} className={`flex size-8 items-center justify-center border text-[0.62rem] transition-colors ${selected ? 'border-[var(--color-text-primary)] bg-[var(--color-text-primary)] text-[var(--color-bg-primary)]' : available ? 'border-[var(--color-border-default)] text-[var(--color-text-secondary)] hover:border-[var(--color-text-primary)] hover:text-[var(--color-text-primary)]' : 'cursor-not-allowed border-[var(--color-border-subtle)] text-[var(--color-text-muted)]/40'}`}>{size}</button>
+                      return <button key={size} type="button" disabled={!available} onClick={() => setSelectedSizes((current) => ({ ...current, [product.id]: size }))} aria-pressed={selected} aria-label={`${available ? 'Select' : 'Unavailable'} size ${size}`} className={`flex size-8 items-center justify-center border text-[0.62rem] transition-colors font-[family-name:var(--font-montserrat)] ${selected ? 'border-[var(--color-text-primary)] bg-[var(--color-text-primary)] text-[var(--color-bg-primary)]' : available ? 'border-[var(--color-border-default)] text-[var(--color-text-secondary)] hover:border-[var(--color-text-primary)] hover:text-[var(--color-text-primary)]' : 'cursor-not-allowed border-[var(--color-border-subtle)] text-[var(--color-text-muted)]/40'}`}>{size}</button>
                     })}
                   </div>
                 </div>

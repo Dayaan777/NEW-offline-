@@ -15,7 +15,7 @@ export const products: Product[] = [
   {
     id: 'margin',
     slug: 'margin',
-    name: 'Margin',
+    name: 'Offline Essential Hoodie',
     category: 'ground',
     price: 29500, // $295.00
     shortDescription:
@@ -85,7 +85,7 @@ export const products: Product[] = [
   {
     id: 'farrow',
     slug: 'farrow',
-    name: 'Farrow',
+    name: '03 Varsity Jersey',
     category: 'field',
     price: 39500, // $395.00
     shortDescription:
@@ -154,7 +154,7 @@ export const products: Product[] = [
   {
     id: 'croft',
     slug: 'croft',
-    name: 'Croft',
+    name: 'Navy Check Overshirt',
     category: 'floor',
     price: 18500, // $185.00
     shortDescription:
@@ -217,7 +217,7 @@ export const products: Product[] = [
   {
     id: 'weld',
     slug: 'weld',
-    name: 'Weld',
+    name: 'Wave Graphic T-Shirt',
     category: 'track',
     price: 26000, // $260.00
     shortDescription:

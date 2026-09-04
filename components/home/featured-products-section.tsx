@@ -26,10 +26,10 @@ export function FeaturedProductsSection() {
   return (
     <section aria-labelledby="featured-products-heading" className="bg-[var(--color-bg-primary)]">
       <div className="container py-16 md:py-24">
-        <header className="mx-auto mb-12 max-w-xl text-center md:mb-16">
+        <header className="mx-auto mb-20 w-full max-w-none text-center md:mb-24">
           <h2 id="featured-products-heading" className="text-[1.65rem] font-light tracking-[-0.02em] text-[var(--color-text-primary)] md:text-[2.15rem]">Featured Collection</h2>
           <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[var(--color-text-secondary)]">Essential silhouettes selected for everyday movement.</p>
-          <Link href="/shop" className="mt-6 inline-flex border border-[var(--color-border-default)] px-5 py-3 text-[0.65rem] font-medium tracking-[0.24em] text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg-primary)]">VIEW ALL</Link>
+          <Link href="/shop" className="mt-8 inline-flex border border-[var(--color-border-default)] px-5 py-3 text-[0.65rem] font-medium tracking-[0.24em] text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg-primary)]">VIEW ALL</Link>
         </header>
         <div className="grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4 md:gap-x-5">
           {featured.map((product) => {
@@ -42,7 +42,7 @@ export function FeaturedProductsSection() {
               <article key={product.id} className="group min-w-0">
                 <div className="relative">
                   <Link href={href} className="relative block aspect-[4/5] overflow-hidden bg-[var(--color-bg-tertiary)]" aria-label={`View ${product.name}`}>
-                    <Image src={imageFor(product.slug)} alt={`${product.name} footwear`} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" sizes="(max-width: 768px) 50vw, 25vw" />
+                    <Image src={imageFor(product.slug)} alt={product.name} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" sizes="(max-width: 768px) 50vw, 25vw" />
                   </Link>
                   <button type="button" onClick={() => toggleItem(item)} aria-pressed={saved} aria-label={`${saved ? 'Remove' : 'Save'} ${product.name}`} className="absolute right-3 top-3 flex size-8 items-center justify-center bg-[var(--color-bg-primary)]/90 text-[var(--color-text-primary)] hover:bg-[var(--color-accent)] hover:text-white">{saved ? '−' : '+'}</button>
                 </div>

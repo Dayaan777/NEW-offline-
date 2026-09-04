@@ -58,7 +58,7 @@ export function MobileHeroCarousel() {
       ))}
 
       <div
-        className="absolute inset-x-4 bottom-4 z-10 flex gap-1.5"
+        className="absolute inset-x-6 bottom-3 z-10 flex gap-1"
         role="progressbar"
         aria-valuenow={activeIndex + 1}
         aria-valuemin={1}
@@ -68,10 +68,10 @@ export function MobileHeroCarousel() {
         {SLIDES.map((slide, index) => (
           <div
             key={slide.src}
-            className="h-[3px] flex-1 overflow-hidden rounded-full bg-white/35"
+            className="h-[1.5px] flex-1 overflow-hidden rounded-full bg-white/20"
           >
             <div
-              className="h-full rounded-full bg-white"
+              className="h-full rounded-full bg-white/60"
               style={
                 index < activeIndex
                   ? { width: '100%' }

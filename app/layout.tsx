@@ -59,11 +59,11 @@ export default function RootLayout({
       <body>
         <CartProvider>
           <WishlistProvider>
-            {/* Fixed header — 60px height, accounted for with pt-[60px] on main */}
+            {/* Fixed header — 96px mobile / 92px desktop, accounted for with pt on main */}
             <Header />
 
             {/* Page content — offset for fixed header */}
-            <main className="min-h-[calc(100dvh-60px)] pt-24 md:pt-[60px]">
+            <main className="min-h-[calc(100dvh-96px)] pt-24 md:min-h-[calc(100dvh-92px)] md:pt-[92px]">
               {children}
             </main>
 

@@ -215,13 +215,13 @@ export function Header() {
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <header
         ref={headerRef}
-        className="group absolute inset-x-0 top-0 z-50 h-24 overflow-x-clip border-b border-transparent bg-transparent transition-colors duration-200 md:top-10 md:h-[82px]"
+        className="group fixed inset-x-0 top-0 z-50 h-24 overflow-x-clip border-b border-transparent bg-transparent transition-colors duration-200 md:h-[92px]"
       >
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,10,10,0.78),rgba(10,10,10,0.45)_55%,rgba(10,10,10,0.12)_100%)] opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 ${isScrolled ? '!opacity-100' : ''}`}
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,10,10,0.78),rgba(10,10,10,0.45)_55%,rgba(10,10,10,0.12)_100%)] opacity-100"
         />
-        <div className="absolute inset-x-0 top-0 flex h-8 items-center border-b border-white/10 bg-[#1b1b1b] md:-top-10 md:h-10">
+        <div className="absolute inset-x-0 top-0 flex h-8 items-center border-b border-white/10 bg-[#1b1b1b] md:h-10">
           <button type="button" aria-label="Previous announcement" className="absolute left-1/2 top-1/2 hidden -translate-x-[320px] -translate-y-1/2 px-2 text-[14px] leading-none text-white/90 transition-opacity hover:opacity-60 md:block">←</button>
           <p className="absolute left-1/2 top-1/2 flex w-max -translate-x-1/2 -translate-y-1/2 items-center text-[9px] font-semibold uppercase tracking-[0.08em] text-white md:text-[11px]">SALE LIVE NOW. UP TO 50% OFF</p>
           <button type="button" aria-label="Next announcement" className="absolute left-1/2 top-1/2 hidden translate-x-[320px] -translate-y-1/2 px-2 text-[14px] leading-none text-white/90 transition-opacity hover:opacity-60 md:block">→</button>
@@ -229,7 +229,7 @@ export function Header() {
         <div className="h-full w-full px-5 md:px-10 lg:px-20">
 
           {/* ── Desktop layout ─────────────────────────────────────────────── */}
-          <div className="relative hidden h-[58px] items-center md:absolute md:inset-x-12 md:top-5 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-4 lg:inset-x-16 lg:gap-8 [&_a]:!text-[var(--color-text-inverse)] [&_button]:!text-[var(--color-text-inverse)]">
+          <div className="relative hidden h-[58px] items-center md:absolute md:inset-x-12 md:top-[50px] md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-4 lg:inset-x-16 lg:gap-8 [&_a]:!text-[var(--color-text-inverse)] [&_button]:!text-[var(--color-text-inverse)]">
 
             {/* Left — primary navigation */}
             <nav className="flex min-w-0 items-center gap-3 whitespace-nowrap lg:gap-6" aria-label="Main navigation">
@@ -276,7 +276,7 @@ export function Header() {
                   key={id}
                   onMouseEnter={() => setOpenMegaMenu(id)}
                   onMouseLeave={() => setOpenMegaMenu(null)}
-                  className={`fixed inset-x-0 top-[104px] z-40 border-t border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] shadow-[var(--shadow-overlay)] transition-all duration-200 ease-out md:top-[132px] ${
+                  className={`fixed inset-x-0 top-[104px] z-40 border-t border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] shadow-[var(--shadow-overlay)] transition-all duration-200 ease-out md:top-[92px] ${
                     openMegaMenu === id
                       ? 'pointer-events-auto translate-y-0 opacity-100'
                       : 'pointer-events-none -translate-y-1 opacity-0'

@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useMemo, useRef, useState } from 'react'
-import { Check, Plus, ShoppingBag, X } from 'lucide-react'
+import { Check, LoaderCircle, Plus, RotateCcw, ShoppingBag, X } from 'lucide-react'
 import { products } from '@/lib/data/products'
 import { useCart } from '@/context/cart-context'
 import type { Product } from '@/lib/types'
@@ -42,7 +42,7 @@ export function OutfitBuilderSection() {
   const { addItem, openCart } = useCart()
   const [activeTab, setActiveTab] = useState(tabs[0].id)
   const [selected, setSelected] = useState<Product[]>([])
-  const [tryOnImage, setTryOnImage] = useState('/images/shop-the-look-placeholder.png')
+  const [tryOnImage, setTryOnImage] = useState<string | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
   const [tryOnError, setTryOnError] = useState<string | null>(null)
   const generationId = useRef(0)
@@ -78,6 +78,14 @@ export function OutfitBuilderSection() {
     }
   }
 
+  const startOver = () => {
+    generationId.current += 1
+    setSelected([])
+    setTryOnImage(null)
+    setTryOnError(null)
+    setIsGenerating(false)
+  }
+
   const addOutfit = () => {
     selected.forEach((product) => {
       const variant = product.variants[0]
@@ -95,14 +103,29 @@ export function OutfitBuilderSection() {
         <h2 id="outfit-builder-title" className="font-serif text-3xl text-balance md:text-5xl">Outfit Builder</h2>
         <p className="mx-auto max-w-xl text-sm leading-6 text-muted-foreground">Start with a piece, then layer your look. Choose what belongs together.</p>
       </div>
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)]">
-        <div className="relative min-h-[520px] overflow-hidden bg-muted md:min-h-[680px]">
-          <Image src={tryOnImage} alt="Model wearing an editable outfit" fill sizes="(max-width: 1024px) 100vw, 55vw" className={`object-cover transition-opacity duration-500 ${isGenerating ? 'opacity-50' : 'opacity-100'}`} unoptimized={tryOnImage.startsWith('http')} />
-          {isGenerating && <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-[2px]"><span className="bg-background/90 px-4 py-3 text-xs uppercase tracking-[0.2em]">Generating try-on...</span></div>}
-          <div className="absolute bottom-4 left-4 bg-background/90 px-4 py-3 text-xs uppercase tracking-[0.2em] backdrop-blur-sm">Your outfit · {selected.length} {selected.length === 1 ? 'piece' : 'pieces'}</div>
-          {tryOnError && <p role="status" className="absolute bottom-4 right-4 max-w-xs bg-background/95 px-4 py-3 text-xs leading-5 text-destructive">{tryOnError}</p>}
+      <div className="grid gap-0 overflow-hidden border border-border bg-background lg:grid-cols-[minmax(0,0.9fr)_minmax(380px,1.1fr)]">
+        <div className="relative min-h-[520px] overflow-hidden border-b border-border bg-muted lg:min-h-[680px] lg:border-b-0 lg:border-r">
+          {tryOnImage ? (
+            <Image src={tryOnImage} alt="Model wearing your selected outfit" fill sizes="(max-width: 1024px) 100vw, 45vw" className={`object-cover transition-opacity duration-500 ${isGenerating ? 'opacity-50' : 'opacity-100'}`} unoptimized={tryOnImage.startsWith('http')} />
+          ) : (
+            <div className="flex min-h-[520px] items-center justify-center bg-background px-8 text-center lg:min-h-[680px]">
+              <div className="max-w-xs">
+                <p className="mb-3 text-[10px] uppercase tracking-[0.28em] text-muted-foreground">Fitting room</p>
+                <p className="text-sm leading-6 text-muted-foreground">Select a product to see it styled on the model.</p>
+              </div>
+            </div>
+          )}
+          {isGenerating && <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-[2px]"><span className="flex items-center gap-2 bg-background/90 px-4 py-3 text-xs uppercase tracking-[0.2em]"><LoaderCircle className="size-4 animate-spin" aria-hidden="true" />Generating</span></div>}
+          {tryOnError && <p role="status" className="absolute bottom-4 left-4 right-4 bg-background/95 px-4 py-3 text-xs leading-5 text-destructive">{tryOnError}</p>}
+          {selected.length > 0 && <div className="absolute bottom-0 left-0 right-0 border-t border-border bg-background/95 px-4 py-4 backdrop-blur-sm md:px-5">
+            <div className="mb-3 flex items-center justify-between"><p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">Your picks</p><button type="button" onClick={startOver} className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"><RotateCcw className="size-3" aria-hidden="true" />Start over</button></div>
+            <div className="flex items-center gap-2">
+              {selected.map((product) => <button key={product.id} type="button" onClick={() => toggleProduct(product)} aria-label={`Remove ${product.name}`} className="group relative size-10 overflow-hidden rounded-full border border-border bg-muted transition-transform hover:scale-105"><Image src={product.variants[0].images[0].src} alt="" fill sizes="40px" className="object-cover" /><span className="absolute inset-0 hidden items-center justify-center bg-background/65 group-hover:flex"><X className="size-3" aria-hidden="true" /></span></button>)}
+            </div>
+          </div>}
         </div>
-        <div className="flex min-h-[520px] flex-col border border-border bg-background p-4 md:p-6">
+        <div className="flex min-h-[520px] flex-col bg-background p-4 md:p-6 lg:min-h-[680px]">
+          <div className="mb-5 flex items-start justify-between gap-4"><div><p className="mb-2 text-[10px] uppercase tracking-[0.24em] text-muted-foreground">Fitting room</p><h3 className="text-xl uppercase tracking-[0.12em]">Build your outfit</h3></div><span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{selected.length} {selected.length === 1 ? 'item' : 'items'}</span></div>
           <div className="flex gap-5 overflow-x-auto border-b border-border pb-4" role="tablist" aria-label="Outfit categories">
             {tabs.map((tab) => <button key={tab.id} type="button" role="tab" aria-selected={activeTab === tab.id} onClick={() => setActiveTab(tab.id)} className={`shrink-0 border-b pb-2 text-xs uppercase tracking-[0.16em] transition-colors ${activeTab === tab.id ? 'border-foreground text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'}`}>{tab.label}</button>)}
           </div>
@@ -110,8 +133,6 @@ export function OutfitBuilderSection() {
             {options.map((product) => <ProductOption key={product.id} product={product} selected={selected.some((item) => item.id === product.id)} onSelect={() => toggleProduct(product)} />)}
           </div>
           <div className="border-t border-border pt-5">
-            <div className="mb-4 flex items-center justify-between"><h3 className="text-xs uppercase tracking-[0.2em]">Your selection</h3><span className="text-xs text-muted-foreground">{selected.length} items</span></div>
-            {selected.length === 0 ? <p className="mb-5 text-sm leading-6 text-muted-foreground">Select pieces above to start building your outfit.</p> : <ul className="mb-5 space-y-2">{selected.map((product) => <li key={product.id} className="flex items-center gap-3"><span className="relative size-10 shrink-0 overflow-hidden bg-muted"><Image src={product.variants[0].images[0].src} alt="" fill sizes="40px" className="object-cover" /></span><span className="min-w-0 flex-1 truncate text-xs uppercase tracking-[0.12em]">{product.name}</span><span className="text-xs">{formatPrice(product.price)}</span><button type="button" onClick={() => toggleProduct(product)} aria-label={`Remove ${product.name}`} className="text-muted-foreground hover:text-foreground"><X className="size-4" /></button></li>)}</ul>}
             <button type="button" disabled={!selected.length} onClick={addOutfit} className="flex w-full items-center justify-center gap-2 bg-foreground px-4 py-3 text-xs uppercase tracking-[0.2em] text-background transition-opacity disabled:cursor-not-allowed disabled:opacity-40"><ShoppingBag className="size-4" aria-hidden="true" />Add outfit to cart</button>
           </div>
         </div>

@@ -42,11 +42,36 @@ export function OutfitBuilderSection() {
   const { addItem, openCart } = useCart()
   const [activeTab, setActiveTab] = useState(tabs[0].id)
   const [selected, setSelected] = useState<Product[]>([])
+  const [tryOnImage, setTryOnImage] = useState('/images/shop-the-look-placeholder.png')
+  const [isGenerating, setIsGenerating] = useState(false)
+  const [tryOnError, setTryOnError] = useState<string | null>(null)
   const active = tabs.find((tab) => tab.id === activeTab) ?? tabs[0]
   const options = useMemo(() => products.filter((product) => product.category === active.category).slice(0, 4), [active.category])
 
-  const toggleProduct = (product: Product) => {
-    setSelected((current) => current.some((item) => item.id === product.id) ? current.filter((item) => item.id !== product.id) : [...current, product])
+  const toggleProduct = async (product: Product) => {
+    const isSelected = selected.some((item) => item.id === product.id)
+    setSelected((current) => isSelected ? current.filter((item) => item.id !== product.id) : [...current, product])
+    if (isSelected) return
+
+    setIsGenerating(true)
+    setTryOnError(null)
+    try {
+      const [personResponse, garmentResponse] = await Promise.all([
+        fetch('/images/shop-the-look-placeholder.png'),
+        fetch(product.variants[0].images[0].src),
+      ])
+      const formData = new FormData()
+      formData.append('personImage', await personResponse.blob(), 'model.png')
+      formData.append('garmentImage', await garmentResponse.blob(), 'garment.jpg')
+      const response = await fetch('/api/virtual-tryon', { method: 'POST', body: formData })
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error ?? 'Virtual try-on failed.')
+      setTryOnImage(data.imageUrl)
+    } catch (error) {
+      setTryOnError(error instanceof Error ? error.message : 'Virtual try-on failed.')
+    } finally {
+      setIsGenerating(false)
+    }
   }
 
   const addOutfit = () => {
@@ -68,8 +93,10 @@ export function OutfitBuilderSection() {
       </div>
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)]">
         <div className="relative min-h-[520px] overflow-hidden bg-muted md:min-h-[680px]">
-          <Image src="/images/shop-the-look-placeholder.png" alt="Model wearing an editable outfit" fill sizes="(max-width: 1024px) 100vw, 55vw" className="object-cover" />
+          <Image src={tryOnImage} alt="Model wearing an editable outfit" fill sizes="(max-width: 1024px) 100vw, 55vw" className={`object-cover transition-opacity duration-500 ${isGenerating ? 'opacity-50' : 'opacity-100'}`} unoptimized={tryOnImage.startsWith('http')} />
+          {isGenerating && <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-[2px]"><span className="bg-background/90 px-4 py-3 text-xs uppercase tracking-[0.2em]">Generating try-on...</span></div>}
           <div className="absolute bottom-4 left-4 bg-background/90 px-4 py-3 text-xs uppercase tracking-[0.2em] backdrop-blur-sm">Your outfit · {selected.length} {selected.length === 1 ? 'piece' : 'pieces'}</div>
+          {tryOnError && <p role="status" className="absolute bottom-4 right-4 max-w-xs bg-background/95 px-4 py-3 text-xs leading-5 text-destructive">{tryOnError}</p>}
         </div>
         <div className="flex min-h-[520px] flex-col border border-border bg-background p-4 md:p-6">
           <div className="flex gap-5 overflow-x-auto border-b border-border pb-4" role="tablist" aria-label="Outfit categories">

@@ -71,6 +71,7 @@ export function Header() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [isScrolled, setIsScrolled] = useState(false)
 
   const headerRef = useRef<HTMLElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
@@ -83,6 +84,14 @@ export function Header() {
     setOpenDropdown(null)
     setSearchQuery('')
   }, [pathname])
+
+  // Track scroll position to trigger the header background
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -152,8 +161,12 @@ export function Header() {
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <header
         ref={headerRef}
-        className="absolute inset-x-0 top-0 z-50 h-24 overflow-x-clip border-b border-transparent bg-transparent transition-colors duration-200 hover:!bg-[#1b1b1b] md:top-10 md:h-[82px]"
+        className="group absolute inset-x-0 top-0 z-50 h-24 overflow-x-clip border-b border-transparent bg-transparent transition-colors duration-200 md:top-10 md:h-[82px]"
       >
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,10,10,0.78),rgba(10,10,10,0.45)_55%,rgba(10,10,10,0.12)_100%)] opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 ${isScrolled ? '!opacity-100' : ''}`}
+        />
         <div className="absolute inset-x-0 top-0 flex h-8 items-center border-b border-white/10 bg-[#1b1b1b] md:-top-10 md:h-10">
           <button type="button" aria-label="Previous announcement" className="absolute left-1/2 top-1/2 hidden -translate-x-[320px] -translate-y-1/2 px-2 text-[14px] leading-none text-white/90 transition-opacity hover:opacity-60 md:block">←</button>
           <p className="absolute left-1/2 top-1/2 flex w-max -translate-x-1/2 -translate-y-1/2 items-center text-[9px] font-semibold uppercase tracking-[0.08em] text-white md:text-[11px]">SALE LIVE NOW. UP TO 50% OFF</p>

@@ -2,30 +2,32 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { categories } from '@/lib/data/categories'
 import { products } from '@/lib/data/products'
+import { useState } from 'react'
 import { useWishlist } from '@/context/wishlist-context'
-import type { CategoryId, Product, WishlistItem } from '@/lib/types'
+import type { Product, WishlistItem } from '@/lib/types'
 
 const FEATURED = ['margin', 'farrow', 'croft', 'weld']
 const imageFor = (slug: string) => slug === 'margin' ? '/images/products/margin/off-white/01.png' : `/images/products/${slug}/editorial.png`
 
 export function FeaturedProductsSection() {
   const { isSaved, toggleItem } = useWishlist()
+  const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({})
   const featured = FEATURED.map((slug) => products.find((product) => product.slug === slug)).filter((product): product is Product => Boolean(product))
 
   return (
     <section aria-labelledby="featured-products-heading" className="bg-[var(--color-bg-primary)]">
-      <div className="container py-12 md:py-16">
-        <div className="mb-7 flex items-end justify-between border-b border-[var(--color-border-subtle)] pb-5">
-          <h2 id="featured-products-heading" className="text-[1.35rem] font-light tracking-[-0.02em] text-[var(--color-text-primary)] md:text-[1.75rem]">Featured products</h2>
-          <Link href="/shop" className="border-b border-[var(--color-text-primary)] pb-1 text-[0.7rem] font-medium tracking-[0.18em] text-[var(--color-text-primary)]">VIEW ALL</Link>
-        </div>
-        <div className="grid grid-cols-2 gap-x-3 gap-y-8 md:grid-cols-4 md:gap-x-5">
+      <div className="container py-16 md:py-24">
+        <header className="mx-auto mb-12 max-w-xl text-center md:mb-16">
+          <p className="label-category mb-3 text-[var(--color-text-muted)]">The edit</p>
+          <h2 id="featured-products-heading" className="text-[1.65rem] font-light tracking-[-0.02em] text-[var(--color-text-primary)] md:text-[2.15rem]">Featured Collection</h2>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[var(--color-text-secondary)]">Essential silhouettes selected for everyday movement.</p>
+          <Link href="/shop" className="mt-6 inline-flex border border-[var(--color-border-default)] px-5 py-3 text-[0.65rem] font-medium tracking-[0.24em] text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg-primary)]">VIEW ALL</Link>
+        </header>
+        <div className="grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4 md:gap-x-5">
           {featured.map((product) => {
             const variant = product.variants[0]
             const href = `/shop/${product.category}/${product.slug}`
-            const category = categories.find((item) => item.id === product.category as CategoryId)
             const saved = isSaved(product.id, variant.id)
             const item: WishlistItem = { productId: product.id, variantId: variant.id, addedAt: new Date().toISOString(), name: product.name, price: product.price, colorLabel: variant.colorLabel, image: variant.images[0], slug: product.slug, category: product.category }
             const availableSizes = variant.sizes.filter((size) => size.available).slice(0, 5)
@@ -37,11 +39,15 @@ export function FeaturedProductsSection() {
                   </Link>
                   <button type="button" onClick={() => toggleItem(item)} aria-pressed={saved} aria-label={`${saved ? 'Remove' : 'Save'} ${product.name}`} className="absolute right-3 top-3 flex size-8 items-center justify-center bg-[var(--color-bg-primary)]/90 text-[var(--color-text-primary)] hover:bg-[var(--color-accent)] hover:text-white">{saved ? '−' : '+'}</button>
                 </div>
-                <div className="pt-4">
-                  <Link href={`/shop/${product.category}`} className="label-category text-[var(--color-text-muted)]">{category?.name ?? product.category}</Link>
-                  <div className="mt-2 flex items-start justify-between gap-2"><h3 className="text-[1rem] font-light text-[var(--color-text-primary)] md:text-[1.15rem]"><Link href={href}>{product.name}</Link></h3><span className="text-[0.8rem] text-[var(--color-accent)]">${Math.round(product.price / 100).toLocaleString('en-US')}</span></div>
-                  <div className="mt-4 flex flex-wrap gap-1.5" aria-label={`Available sizes for ${product.name}`}>
-                    {availableSizes.map((size) => <button key={size.eu} type="button" aria-label={`Select EU size ${size.eu}`} className="min-w-8 border border-[var(--color-border-default)] px-1.5 py-1 text-[0.65rem] text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-text-primary)] hover:text-[var(--color-text-primary)]">{size.eu}</button>)}
+                <div className="pt-4 text-center">
+                  <h3 className="text-[0.72rem] font-medium uppercase tracking-[0.22em] text-[var(--color-text-primary)]"><Link href={href}>{product.name}</Link></h3>
+                  <p className="mt-2 text-[0.78rem] tracking-[0.08em] text-[var(--color-accent)]">Rs.{Math.round(product.price / 100).toLocaleString('en-IN')}</p>
+                  <div className="mt-4 flex justify-center gap-2" aria-label={`Available sizes for ${product.name}`}>
+                    {['S', 'M', 'L', 'XL'].map((size) => {
+                      const available = availableSizes.length > 0 && (size === 'S' || size === 'M' || size === 'L' || size === 'XL')
+                      const selected = selectedSizes[product.id] === size
+                      return <button key={size} type="button" disabled={!available} onClick={() => setSelectedSizes((current) => ({ ...current, [product.id]: size }))} aria-pressed={selected} aria-label={`${available ? 'Select' : 'Unavailable'} size ${size}`} className={`flex size-8 items-center justify-center border text-[0.62rem] transition-colors ${selected ? 'border-[var(--color-text-primary)] bg-[var(--color-text-primary)] text-[var(--color-bg-primary)]' : available ? 'border-[var(--color-border-default)] text-[var(--color-text-secondary)] hover:border-[var(--color-text-primary)] hover:text-[var(--color-text-primary)]' : 'cursor-not-allowed border-[var(--color-border-subtle)] text-[var(--color-text-muted)]/40'}`}>{size}</button>
+                    })}
                   </div>
                 </div>
               </article>

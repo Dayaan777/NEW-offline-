@@ -58,7 +58,7 @@ export function DesktopHeroCarousel() {
               alt={slide.alt}
               fill
               priority
-              className="object-cover object-[center_50%]"
+              className="object-cover object-[left_50%]"
               sizes="100vw"
             />
           ) : (

@@ -28,7 +28,7 @@ export function FeaturedProductsSection() {
       <div className="container py-16 md:py-24">
         <header className="mx-auto mb-14 flex w-full max-w-none flex-col items-center text-center md:mb-[56px]">
           <h2 id="featured-products-heading" className="font-[family-name:var(--font-crimson)] text-[1.3rem] font-normal uppercase tracking-[0.02em] text-[var(--color-text-primary)] md:text-[1.45rem] pb-[7px]">Featured Collection</h2>
-          <Link href="/shop" className="mt-4 inline-flex border border-[var(--color-border-default)] px-4 py-2 text-[0.62rem] font-normal tracking-[0.28em] text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg-primary)] font-[family-name:var(--font-montserrat)] pb-[10px] h-[24.3594px] mb-4">VIEW ALL</Link>
+          <Link href="/shop" className="mt-4 inline-flex border border-[var(--color-border-default)] px-4 py-2 text-[0.62rem] font-normal tracking-[0.28em] text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg-primary)] font-[family-name:var(--font-montserrat)] pb-[10px] h-[24.3594px] mb-[15px]">VIEW ALL</Link>
         </header>
         <div className="grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4 md:gap-x-5">
           {featured.map((product) => {

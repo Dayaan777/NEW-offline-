@@ -47,7 +47,7 @@ export function CategoryTileGrid() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <section className="w-full border-t-4 border-white bg-background py-10 md:py-14">
+    <section className="w-full border-t-8 border-white bg-background py-10 md:py-14">
       <div className="w-full">
         <div
           className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6 md:gap-3"

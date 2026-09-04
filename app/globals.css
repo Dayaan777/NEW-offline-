@@ -207,3 +207,9 @@ img, video {
   font-family: var(--font-editorial);
   font-weight: 400;
 }
+
+/* ─── Hide scrollbar on draggable carousels ─────────────────────────────────── */
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

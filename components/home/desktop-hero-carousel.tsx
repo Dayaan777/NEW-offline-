@@ -11,8 +11,8 @@ type Slide =
 const SLIDES: Slide[] = [
   {
     type: 'image',
-    src: '/images/desktop-hero-fitted-elegance.jpg',
-    alt: "A man and woman in navy tailored suits facing each other, with the text 'A New Era of Fitted Elegance'",
+    src: '/images/summer-26.jpg',
+    alt: "A man in sunglasses wearing a light ribbed polo by the sea with large 'SUMMER ’26' campaign text",
   },
   { type: 'split-video', leftSrc: '/videos/desktop-hero-clip-1.mp4', rightSrc: '/videos/desktop-hero-clip-2.mp4' },
   { type: 'split-video', leftSrc: '/videos/desktop-hero-clip-3.mp4', rightSrc: '/videos/desktop-hero-clip-1.mp4' },
@@ -58,12 +58,12 @@ export function DesktopHeroCarousel() {
               alt={slide.alt}
               fill
               priority
-              className="object-cover object-[center_50%]"
+              className="object-cover object-[left_50%]"
               sizes="100vw"
             />
           ) : (
             <div className="flex h-full w-full">
-              <div className="relative h-full w-1/2 overflow-hidden">
+              <div className="relative h-full min-w-0 flex-1 overflow-hidden">
                 <video
                   ref={(el) => {
                     if (el) videoRefs.current[index * 2] = el
@@ -77,8 +77,7 @@ export function DesktopHeroCarousel() {
                   preload="auto"
                 />
               </div>
-              <div aria-hidden="true" className="h-full w-px shrink-0 bg-[var(--color-bg-base)]/15" />
-              <div className="relative h-full w-1/2 overflow-hidden">
+              <div className="relative h-full min-w-0 flex-1 overflow-hidden">
                 <video
                   ref={(el) => {
                     if (el) videoRefs.current[index * 2 + 1] = el

@@ -23,7 +23,7 @@ export function GenderSplitBanner() {
   const [active, setActive] = useState<number | null>(null)
 
   return (
-    <section aria-label="Shop by category" className="grid grid-cols-1 gap-1 bg-background md:grid-cols-2">
+    <section aria-label="Shop by category" className="grid grid-cols-1 gap-6 bg-background px-5 py-6 md:grid-cols-2 md:gap-8 md:px-10 md:py-12 lg:px-16 lg:py-16">
       {sides.map((side, index) => (
         <Link
           key={side.label}

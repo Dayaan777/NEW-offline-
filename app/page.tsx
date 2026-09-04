@@ -9,7 +9,7 @@ import { GenderSplitBanner } from '@/components/home/gender-split-banner'
 
 export default function HomePage() {
   return (
-    <>
+    <main className="flex flex-col gap-16 md:gap-24">
       <HomeHero />
       <CategoryTileGrid />
       <GenderSplitBanner />
@@ -18,6 +18,6 @@ export default function HomePage() {
       <MaterialsSection />
       <EditorialSection />
       <FinalCtaSection />
-    </>
+    </main>
   )
 }

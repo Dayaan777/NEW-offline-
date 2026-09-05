@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { Pause, Play } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
@@ -53,13 +52,11 @@ export function DesktopHeroCarousel() {
           aria-hidden={index !== activeIndex}
         >
           {slide.type === 'image' ? (
-            <Image
-              src={slide.src || '/placeholder.svg'}
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={slide.src}
               alt={slide.alt}
-              fill
-              priority
-              className="object-cover object-[left_50%]"
-              sizes="100vw"
+              className="h-full w-full object-cover object-[center_top]"
             />
           ) : (
             <div className="flex h-full w-full">

@@ -127,6 +127,9 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState('')
   const [isScrolled, setIsScrolled] = useState(false)
 
+  // PDP pages have a light background — keep the gradient overlay always visible
+  const isPdpRoute = /^\/shop\/[^/]+\/[^/]+/.test(pathname)
+
   const headerRef = useRef<HTMLElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
   const mobileSearchRef = useRef<HTMLInputElement>(null)
@@ -219,7 +222,7 @@ export function Header() {
       >
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,10,10,0.78),rgba(10,10,10,0.45)_55%,rgba(10,10,10,0.12)_100%)] transition-opacity duration-200 group-hover:opacity-100 ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
+          className={`pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,10,10,0.78),rgba(10,10,10,0.45)_55%,rgba(10,10,10,0.12)_100%)] transition-opacity duration-200 group-hover:opacity-100 ${isScrolled || isPdpRoute ? 'opacity-100' : 'opacity-0'}`}
         />
         <div className="absolute inset-x-0 top-0 flex h-8 items-center border-b border-white/10 bg-[#1b1b1b] md:h-10">
           <button type="button" aria-label="Previous announcement" className="absolute left-1/2 top-1/2 hidden -translate-x-[320px] -translate-y-1/2 px-2 text-[14px] leading-none text-white/90 transition-opacity hover:opacity-60 md:block">←</button>

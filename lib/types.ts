@@ -38,6 +38,7 @@ export interface Product {
   name: string
   category: CategoryId
   price: number              // in USD cents (e.g. 29500 = $295.00)
+  originalPrice?: number     // original price before discount
   shortDescription: string   // 1-2 sentences for cards/meta
   description: string        // full product description
   materials: ProductMaterials

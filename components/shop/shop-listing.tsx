@@ -6,6 +6,7 @@ import { Heart, SlidersHorizontal, X } from 'lucide-react'
 import { fetchProducts } from '@/lib/api'
 import type { Product, CategoryId, SortOption } from '@/lib/types'
 import { useWishlist } from '@/context/wishlist-context'
+import { formatPrice } from '@/lib/utils'
 
 const PAGE_SIZE = 12
 const sizes = [38, 39, 40, 41, 42, 43, 44, 45, 46]
@@ -28,7 +29,7 @@ function ProductCard({ product }: { product: Product }) {
       </div>
       <div className="flex items-start justify-between gap-3 pt-4">
         <div><Link href={`/shop/${product.category}/${product.slug}`} className="font-serif text-lg hover:underline">{product.name}</Link><p className="mt-1 text-sm text-muted-foreground">{variant.colorLabel.split(' — ')[0]}</p></div>
-        <p className="font-mono text-sm">${(product.price / 100).toFixed(2)}</p>
+        <p className="font-mono text-sm">{formatPrice(product.price)}</p>
       </div>
     </article>
   )

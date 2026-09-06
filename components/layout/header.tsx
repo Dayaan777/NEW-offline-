@@ -14,103 +14,263 @@ import {
   IconX,
   IconChevronDown,
 } from '@/components/icons'
+import { CartDrawer } from '@/components/cart/cart-drawer'
+import { SearchDrawer } from '@/components/search/search-drawer'
 
 // ─── Nav data ─────────────────────────────────────────────────────────────────
 
+interface MegaLinkItem {
+  label: string
+  href: string
+  isHighlight?: boolean
+  isSpecialPrice?: boolean
+}
+
+interface MegaColumn {
+  title?: string
+  items: MegaLinkItem[]
+}
+
+interface MegaMenuData {
+  columns: MegaColumn[]
+}
+
+const MEN_MEGA_DATA: MegaMenuData = {
+  columns: [
+    {
+      items: [
+        { label: 'NEW ARRIVALS', href: '/shop/new', isHighlight: true },
+        { label: 'SPECIAL PRICE', href: '/shop', isSpecialPrice: true },
+        { label: 'BEST SELLERS', href: '/shop/shoes', isHighlight: true },
+      ],
+    },
+    {
+      title: 'CLOTHING',
+      items: [
+        { label: 'Tees', href: '/shop/men-tshirts' },
+        { label: 'Polos', href: '/shop/men-polo' },
+        { label: 'Summer Knits', href: '/shop/men-polo' },
+        { label: 'Shirts', href: '/shop/men-shirts' },
+        { label: 'Sweaters', href: '/shop/men-hoodie' },
+        { label: 'Sweatshirts / Hoodies', href: '/shop/men-hoodie' },
+        { label: 'Jeans', href: '/shop/men-pants' },
+        { label: 'Cargo Pants', href: '/shop/men-pants' },
+        { label: 'Trousers / Chinos', href: '/shop/men-pants' },
+        { label: 'Joggers', href: '/shop/men-pants' },
+        { label: 'Shorts', href: '/shop/men-pants' },
+        { label: 'Co-ords', href: '/shop/men-tshirts' },
+      ],
+    },
+    {
+      title: 'ACCESSORIES',
+      items: [
+        { label: 'Shoes', href: '/shop/shoes' },
+        { label: 'Jewellery', href: '/shop/shoes' },
+        { label: 'Caps / Hats', href: '/shop/shoes' },
+        { label: 'Sunglasses', href: '/shop/shoes' },
+        { label: 'Perfumes', href: '/shop/shoes' },
+        { label: 'Bags', href: '/shop/shoes' },
+        { label: 'Belts', href: '/shop/shoes' },
+        { label: 'Wallets', href: '/shop/shoes' },
+        { label: 'Socks', href: '/shop/shoes' },
+        { label: 'Underwears / Vests', href: '/shop/shoes' },
+      ],
+    },
+    {
+      title: 'HIGHLIGHTS',
+      items: [
+        { label: 'NEW RELEASES', href: '/shop/new', isHighlight: true },
+        { label: 'THE BRAND', href: '/brand', isHighlight: true },
+        { label: 'SUMMER ’26', href: '/shop/new', isHighlight: true },
+        { label: 'ALL PRODUCTS', href: '/shop', isHighlight: true },
+      ],
+    },
+  ],
+}
+
+const WOMEN_MEGA_DATA: MegaMenuData = {
+  columns: [
+    {
+      items: [
+        { label: 'NEW ARRIVALS', href: '/shop/new', isHighlight: true },
+        { label: 'SPECIAL PRICE', href: '/shop', isSpecialPrice: true },
+        { label: 'BEST SELLERS', href: '/shop/shoes', isHighlight: true },
+      ],
+    },
+    {
+      title: 'CLOTHING',
+      items: [
+        { label: 'Tees', href: '/shop/women-tshirts' },
+        { label: 'Polos', href: '/shop/women-polo' },
+        { label: 'Summer Knits', href: '/shop/women-polo' },
+        { label: 'Shirts', href: '/shop/women-shirts' },
+        { label: 'Sweaters', href: '/shop/women-hoodie' },
+        { label: 'Sweatshirts / Hoodies', href: '/shop/women-hoodie' },
+        { label: 'Jeans', href: '/shop/women-trousers' },
+        { label: 'Cargo Pants', href: '/shop/women-trousers' },
+        { label: 'Trousers / Chinos', href: '/shop/women-trousers' },
+        { label: 'Joggers', href: '/shop/women-trousers' },
+        { label: 'Shorts', href: '/shop/women-trousers' },
+        { label: 'Co-ords', href: '/shop/women-tshirts' },
+      ],
+    },
+    {
+      title: 'ACCESSORIES',
+      items: [
+        { label: 'Shoes', href: '/shop/shoes' },
+        { label: 'Jewellery', href: '/shop/shoes' },
+        { label: 'Caps / Hats', href: '/shop/shoes' },
+        { label: 'Sunglasses', href: '/shop/shoes' },
+        { label: 'Perfumes', href: '/shop/shoes' },
+        { label: 'Bags', href: '/shop/shoes' },
+        { label: 'Belts', href: '/shop/shoes' },
+        { label: 'Wallets', href: '/shop/shoes' },
+        { label: 'Socks', href: '/shop/shoes' },
+        { label: 'Underwears / Vests', href: '/shop/shoes' },
+      ],
+    },
+    {
+      title: 'HIGHLIGHTS',
+      items: [
+        { label: 'NEW RELEASES', href: '/shop/new', isHighlight: true },
+        { label: 'THE BRAND', href: '/brand', isHighlight: true },
+        { label: 'SUMMER ’26', href: '/shop/new', isHighlight: true },
+        { label: 'ALL PRODUCTS', href: '/shop', isHighlight: true },
+      ],
+    },
+  ],
+}
+
+function MegaMenuPanel({
+  id,
+  isOpen,
+  isDarkTheme,
+  onMouseEnter,
+  onMouseLeave,
+  onClose,
+}: {
+  id: 'men' | 'women'
+  isOpen: boolean
+  isDarkTheme: boolean
+  onMouseEnter: () => void
+  onMouseLeave: () => void
+  onClose: () => void
+}) {
+  const data = id === 'men' ? MEN_MEGA_DATA : WOMEN_MEGA_DATA
+
+  return (
+    <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={{ left: '24px', right: '24px', top: '112px' }}
+      className={`fixed z-40 max-h-[calc(100vh-125px)] overflow-y-auto border shadow-2xl rounded-sm transition-all duration-300 ease-out ${
+        isDarkTheme
+          ? 'bg-[#1A1714]/95 backdrop-blur-md border-[#3A342F] text-white'
+          : 'bg-[var(--color-bg-primary)] border-[#D8D2CB] text-[var(--color-text-primary)]'
+      } ${
+        isOpen
+          ? 'pointer-events-auto translate-y-0 opacity-100'
+          : 'pointer-events-none -translate-y-2 opacity-0'
+      }`}
+      role="menu"
+      aria-label={`${id} menu`}
+    >
+      {/* Outer padding: 48px top, 48px left/right */}
+      <div style={{ padding: '48px 48px 40px 48px', maxWidth: '1240px', margin: '0 auto' }}>
+        {/* 4-column grid with explicit gap */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '64px', alignItems: 'start' }}>
+          {data.columns.map((col, colIdx) => (
+            <div key={colIdx} style={{ display: 'flex', flexDirection: 'column' }}>
+              {/* Column header — 13px bold, preserves casing from data (CLOTHING, ACCESSORIES etc.) */}
+              {col.title ? (
+                <h3
+                  style={{
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    letterSpacing: '0.08em',
+                    lineHeight: '1',
+                    marginBottom: '28px',
+                    marginTop: 0,
+                    color: isDarkTheme ? '#ffffff' : '#1A1714',
+                    fontFamily: 'inherit',
+                  }}
+                >
+                  {col.title}
+                </h3>
+              ) : (
+                /* Baseline spacer: 13px line-height + 28px margin-bottom = 41px total, matching titled columns */
+                <div aria-hidden="true" style={{ height: '41px', flexShrink: 0 }} />
+              )}
+              <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {col.items.map((item, itemIdx) => (
+                  <li key={itemIdx}>
+                    <Link
+                      href={item.href}
+                      onClick={onClose}
+                      className="group/megalink relative"
+                      style={{
+                        display: 'inline-block',
+                        fontSize: '13px',
+                        lineHeight: 1.4,
+                        letterSpacing: item.isHighlight ? '0.1em' : '0.02em',
+                        fontWeight: item.isSpecialPrice ? 700 : item.isHighlight ? 600 : 400,
+                        textTransform: item.isSpecialPrice || item.isHighlight ? 'uppercase' : 'none',
+                        color: item.isSpecialPrice
+                          ? isDarkTheme ? '#f87171' : '#dc2626'
+                          : isDarkTheme ? '#d4d0cc' : '#3D3D3D',
+                        textDecoration: 'none',
+                        transition: 'color 0.15s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        const el = e.currentTarget as HTMLAnchorElement
+                        el.style.color = item.isSpecialPrice
+                          ? isDarkTheme ? '#fca5a5' : '#b91c1c'
+                          : isDarkTheme ? '#ffffff' : '#7C5C3E'
+                      }}
+                      onMouseLeave={(e) => {
+                        const el = e.currentTarget as HTMLAnchorElement
+                        el.style.color = item.isSpecialPrice
+                          ? isDarkTheme ? '#f87171' : '#dc2626'
+                          : isDarkTheme ? '#d4d0cc' : '#3D3D3D'
+                      }}
+                    >
+                      {item.label}
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover/megalink:scale-x-100 group-focus-visible/megalink:scale-x-100"
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 type MegaId = 'men' | 'women'
 
-type MegaColumn = {
-  title: string
-  items: { label: string; href: string }[]
-}
-
-type MegaFeatured = {
-  name: string
-  price: number
-  originalPrice?: number
-  image: string
-  href: string
-}
-
-type MegaMenu = { columns: MegaColumn[]; featured: MegaFeatured[] }
-
 type NavLink =
-  | { label: string; type: 'mega'; id: MegaId; mega: MegaMenu; href?: never }
-  | { label: string; type: 'link'; href: string; id?: never; mega?: never }
-
-const MEGA_MENUS: Record<MegaId, MegaMenu> = {
-  men: {
-    columns: [
-      {
-        title: 'SHOP',
-        items: [
-          { label: 'Ground', href: '/shop/ground' },
-          { label: 'Field', href: '/shop/field' },
-          { label: 'Floor', href: '/shop/floor' },
-          { label: 'Track', href: '/shop/track' },
-          { label: 'View all', href: '/shop' },
-        ],
-      },
-      {
-        title: 'COLLECTIONS',
-        items: [
-          { label: 'New releases', href: '/shop/new' },
-          { label: 'Best sellers', href: '/shop' },
-          { label: 'The brand', href: '/brand' },
-          { label: 'View all', href: '/shop' },
-        ],
-      },
-    ],
-    featured: [
-      { name: 'Farrow', price: 39500, image: '/images/products/farrow/editorial.png', href: '/product/farrow' },
-      { name: 'Margin — Off-white', price: 29500, image: '/images/products/margin/off-white/01.png', href: '/product/margin' },
-    ],
-  },
-  women: {
-    columns: [
-      {
-        title: 'SHOP',
-        items: [
-          { label: 'Ground', href: '/shop/ground' },
-          { label: 'Field', href: '/shop/field' },
-          { label: 'Floor', href: '/shop/floor' },
-          { label: 'Track', href: '/shop/track' },
-          { label: 'View all', href: '/shop' },
-        ],
-      },
-      {
-        title: 'COLLECTIONS',
-        items: [
-          { label: 'New releases', href: '/shop/new' },
-          { label: 'Best sellers', href: '/shop' },
-          { label: 'The brand', href: '/brand' },
-          { label: 'View all', href: '/shop' },
-        ],
-      },
-    ],
-    featured: [
-      { name: 'Croft', price: 18500, image: '/images/products/croft/editorial.png', href: '/product/croft' },
-      { name: 'Weld', price: 26000, image: '/images/products/weld/editorial.png', href: '/product/weld' },
-    ],
-  },
-}
+  | { label: string; type: 'mega'; id: MegaId; href?: never }
+  | { label: string; type: 'link'; href: string; id?: never }
 
 const NAV_LINKS: NavLink[] = [
-  { label: 'MEN', type: 'mega', id: 'men', mega: MEGA_MENUS.men },
-  { label: 'WOMEN', type: 'mega', id: 'women', mega: MEGA_MENUS.women },
+  { label: 'MEN', type: 'mega', id: 'men' },
+  { label: 'WOMEN', type: 'mega', id: 'women' },
   { label: 'HOME', type: 'link', href: '/shop' },
-  { label: 'SHOES', type: 'link', href: '/shop/floor' },
+  { label: 'SHOES', type: 'link', href: '/shop/shoes' },
   { label: 'NEW RELEASES', type: 'link', href: '/shop/new' },
 ]
 
-const formatPrice = (cents: number) => `$${(cents / 100).toFixed(2)}`
-
 const MOBILE_LINKS = [
-  { label: 'MEN', href: '/shop/new' },
-  { label: 'WOMEN', href: '/shop/field' },
-  { label: 'HOME', href: '/shop' },
-  { label: 'SHOES', href: '/shop/floor' },
-  { label: 'NEW RELEASES', href: '/shop/new' },
+  { label: 'Men', href: '/shop/men-tshirts' },
+  { label: 'Women', href: '/shop/women-tshirts' },
+  { label: 'Shoes', href: '/shop/shoes' },
+  { label: 'New Releases', href: '/shop/new' },
+  { label: 'All Products', href: '/shop' },
 ]
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -127,20 +287,55 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState('')
   const [isScrolled, setIsScrolled] = useState(false)
 
-  // PDP pages have a light background — keep the gradient overlay always visible
-  const isPdpRoute = /^\/shop\/[^/]+\/[^/]+/.test(pathname)
+  // PDP, cart, checkout, search, wishlist, account, and orders pages have a light background — keep the gradient overlay always visible
+  const isAlwaysOverlayRoute =
+    /^\/shop\/[^/]+\/[^/]+/.test(pathname) ||   // PDP
+    /^\/shop\/(men|women)-/.test(pathname) ||    // apparel category pages
+    pathname === '/shop/shoes' ||                 // shoes overview
+    pathname === '/cart' ||
+    pathname.startsWith('/checkout') ||
+    pathname === '/search' ||
+    pathname === '/wishlist' ||
+    pathname === '/account' ||
+    pathname.startsWith('/orders')
+
+  const isDarkTheme = !isScrolled && !isAlwaysOverlayRoute
 
   const headerRef = useRef<HTMLElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
   const mobileSearchRef = useRef<HTMLInputElement>(null)
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const cancelMegaClose = useCallback(() => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current)
+      closeTimerRef.current = null
+    }
+  }, [])
+
+  const scheduleMegaClose = useCallback(() => {
+    cancelMegaClose()
+    closeTimerRef.current = setTimeout(() => {
+      setOpenMegaMenu(null)
+    }, 180)
+  }, [cancelMegaClose])
+
+  const handleMegaOpen = useCallback(
+    (id: MegaId) => {
+      cancelMegaClose()
+      setOpenMegaMenu(id)
+    },
+    [cancelMegaClose]
+  )
 
   // Close everything on route change
   useEffect(() => {
     setIsMobileOpen(false)
     setIsSearchOpen(false)
+    cancelMegaClose()
     setOpenMegaMenu(null)
     setSearchQuery('')
-  }, [pathname])
+  }, [pathname, cancelMegaClose])
 
   // Track scroll position to trigger the header background
   useEffect(() => {
@@ -165,12 +360,13 @@ export function Header() {
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        cancelMegaClose()
         setOpenMegaMenu(null)
       }
     }
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
-  }, [])
+  }, [cancelMegaClose])
 
   // Close search on Escape
   useEffect(() => {
@@ -178,12 +374,13 @@ export function Header() {
       if (e.key === 'Escape') {
         if (isSearchOpen) { setIsSearchOpen(false); setSearchQuery('') }
         if (isMobileOpen) setIsMobileOpen(false)
+        cancelMegaClose()
         setOpenMegaMenu(null)
       }
     }
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  }, [isSearchOpen, isMobileOpen])
+  }, [isSearchOpen, isMobileOpen, cancelMegaClose])
 
   const handleSearchSubmit = useCallback(
     (e: React.FormEvent, closeMobile = false) => {
@@ -208,6 +405,7 @@ export function Header() {
   const toggleSearch = () => {
     setIsSearchOpen((v) => !v)
     setSearchQuery('')
+    cancelMegaClose()
     setOpenMegaMenu(null)
   }
 
@@ -222,7 +420,7 @@ export function Header() {
       >
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,10,10,0.78),rgba(10,10,10,0.45)_55%,rgba(10,10,10,0.12)_100%)] transition-opacity duration-200 group-hover:opacity-100 ${isScrolled || isPdpRoute ? 'opacity-100' : 'opacity-0'}`}
+          className={`pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(10,10,10,0.78),rgba(10,10,10,0.45)_55%,rgba(10,10,10,0.12)_100%)] transition-opacity duration-200 group-hover:opacity-100 ${isScrolled || isAlwaysOverlayRoute || openMegaMenu !== null ? 'opacity-100' : 'opacity-0'}`}
         />
         <div className="absolute inset-x-0 top-0 flex h-8 items-center border-b border-white/10 bg-[#1b1b1b] md:h-10">
           <button type="button" aria-label="Previous announcement" className="absolute left-1/2 top-1/2 hidden -translate-x-[320px] -translate-y-1/2 px-2 text-[14px] leading-none text-white/90 transition-opacity hover:opacity-60 md:block">←</button>
@@ -241,8 +439,8 @@ export function Header() {
                   <div
                     key={link.id}
                     className="relative"
-                    onMouseEnter={() => setOpenMegaMenu(link.id)}
-                    onMouseLeave={() => setOpenMegaMenu(null)}
+                    onMouseEnter={() => handleMegaOpen(link.id)}
+                    onMouseLeave={scheduleMegaClose}
                   >
                     <button
                       aria-expanded={openMegaMenu === link.id}
@@ -258,7 +456,10 @@ export function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    onMouseEnter={() => setOpenMegaMenu(null)}
+                    onMouseEnter={() => {
+                      cancelMegaClose()
+                      setOpenMegaMenu(null)
+                    }}
                     className="group/navlink relative py-1 text-[12px] tracking-[0.02em] text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-90"
                   >
                     {link.label}
@@ -271,73 +472,6 @@ export function Header() {
               )}
             </nav>
 
-            {/* Mega menu panel — full-width, spans below the entire header */}
-            {(['men', 'women'] as MegaId[]).map((id) => {
-              const menu = MEGA_MENUS[id]
-              return (
-                <div
-                  key={id}
-                  onMouseEnter={() => setOpenMegaMenu(id)}
-                  onMouseLeave={() => setOpenMegaMenu(null)}
-                  className={`fixed inset-x-0 top-[104px] z-40 border-t border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] shadow-[var(--shadow-overlay)] transition-all duration-200 ease-out md:top-[112px] ${
-                    openMegaMenu === id
-                      ? 'pointer-events-auto translate-y-0 opacity-100'
-                      : 'pointer-events-none -translate-y-1 opacity-0'
-                  }`}
-                  role="menu"
-                  aria-label={`${id} menu`}
-                >
-                  <div className="mx-auto flex max-w-[1200px] items-start gap-16 px-10 py-10 lg:px-16">
-                    <div className="flex flex-1 gap-16">
-                      {menu.columns.map((col) => (
-                        <div key={col.title} className="flex flex-col gap-3">
-                          <span className="text-[11px] tracking-[0.08em] text-[var(--color-text-tertiary)]">{col.title}</span>
-                          <ul className="flex flex-col gap-2.5">
-                            {col.items.map((item, itemIndex) => (
-                              <li key={`${col.title}-${item.label}-${itemIndex}`}>
-                                <Link
-                                  href={item.href}
-                                  role="menuitem"
-                                  onClick={() => setOpenMegaMenu(null)}
-                                  className="text-[13px] tracking-[0.01em] text-[var(--color-text-secondary)] transition-colors duration-100 hover:text-[color:var(--color-text-primary)]"
-                                >
-                                  {item.label}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex flex-shrink-0 gap-6">
-                      {menu.featured.map((product) => (
-                        <Link
-                          key={product.href}
-                          href={product.href}
-                          onClick={() => setOpenMegaMenu(null)}
-                          className="group/product w-[168px] flex-shrink-0"
-                        >
-                          <div className="aspect-[4/5] w-full overflow-hidden bg-[var(--color-bg-secondary)]">
-                            <img
-                              src={product.image || '/placeholder.svg'}
-                              alt={product.name}
-                              className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover/product:scale-105"
-                            />
-                          </div>
-                          <p className="mt-3 text-[13px] text-[var(--color-text-primary)]">{product.name}</p>
-                          <p className="mt-0.5 flex items-center gap-2 text-[13px]">
-                            <span className="text-[var(--color-text-secondary)]">{formatPrice(product.price)}</span>
-                            {product.originalPrice && (
-                              <span className="text-[var(--color-text-tertiary)] line-through">{formatPrice(product.originalPrice)}</span>
-                            )}
-                          </p>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
 
             {/* Center — independent wordmark */}
             <Link href="/" aria-label="OFFLINE home" className="group justify-self-center transition-opacity duration-200 hover:opacity-80">
@@ -346,28 +480,17 @@ export function Header() {
 
             {/* Right — utility icons */}
             <div className="flex items-center justify-end gap-4 lg:gap-5">
-              {isSearchOpen && (
-                <form onSubmit={handleSearchSubmit} className="absolute right-32 top-1/2 flex w-[240px] -translate-y-1/2 items-center" role="search">
-                  <input
-                    ref={searchInputRef}
-                    type="search"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search footwear..."
-                    aria-label="Search"
-                    className="w-full border-b border-[var(--color-text-inverse)] bg-transparent pb-1 text-[15px] text-[color:var(--color-text-inverse)] placeholder:text-[var(--color-text-inverse-muted)] focus:border-[var(--color-text-inverse)] focus:outline-none"
-                  />
-                </form>
-              )}
-              <button onClick={toggleSearch} aria-label={isSearchOpen ? 'Close search' : 'Search'} className="text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none">
-                {isSearchOpen ? <IconX className="h-5 w-5" /> : <IconSearch className="h-[18px] w-[18px]" />}
+              <button onClick={toggleSearch} aria-label="Search" className="text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none">
+                <IconSearch className="h-[18px] w-[18px]" />
               </button>
               <Link href="/account" aria-label="Account" className="text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70">
                 <IconUser className="h-[18px] w-[18px]" />
               </Link>
-              <button onClick={openCart} aria-label={`Cart${itemCount > 0 ? `, ${itemCount} item${itemCount !== 1 ? 's' : ''}` : ''}`} className="relative text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none">
-                <IconBag className="h-[18px] w-[18px]" />
-                {itemCount > 0 && <span aria-hidden="true" className="absolute -right-2 -top-1.5 flex h-4 min-w-[16px] items-center justify-center bg-[var(--color-accent)] px-[3px] text-[10px] font-medium leading-none text-[color:var(--color-text-inverse)]">{itemCount > 9 ? '9+' : itemCount}</span>}
+              <button onClick={openCart} aria-label={`Cart${itemCount > 0 ? `, ${itemCount} item${itemCount !== 1 ? 's' : ''}` : ''}`} className="text-[color:var(--color-text-inverse)] transition-opacity duration-100 hover:opacity-70 focus:outline-none">
+                <span className="relative inline-flex items-center justify-center">
+                  <IconBag className="h-[18px] w-[18px]" />
+                  {itemCount > 0 && <span aria-hidden="true" className="absolute -right-2 -top-1.5 flex h-4 min-w-[16px] items-center justify-center bg-[var(--color-accent)] px-[3px] text-[10px] font-medium leading-none text-[color:var(--color-text-inverse)]">{itemCount > 9 ? '9+' : itemCount}</span>}
+                </span>
               </button>
             </div>
           </div>
@@ -384,10 +507,10 @@ export function Header() {
               </button>
               <button
                 onClick={toggleSearch}
-                aria-label={isSearchOpen ? 'Close search' : 'Search'}
+                aria-label="Search"
                 className="flex translate-x-1 items-center justify-center text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
               >
-                {isSearchOpen ? <IconX className="h-[18px] w-[18px]" /> : <IconSearch className="h-[18px] w-[18px]" />}
+                <IconSearch className="h-[18px] w-[18px]" />
               </button>
             </div>
 
@@ -402,21 +525,39 @@ export function Header() {
             <button
               onClick={openCart}
               aria-label={`Cart${itemCount > 0 ? `, ${itemCount} item${itemCount !== 1 ? 's' : ''}` : ''}`}
-              className="relative flex h-full -translate-x-1 items-center justify-self-end text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
+              className="flex h-full -translate-x-1 items-center justify-self-end text-[color:var(--color-text-inverse)] opacity-100 transition-opacity duration-100 hover:opacity-70 focus:outline-none"
             >
-              <IconBag className="h-[18px] w-[18px]" />
-              {itemCount > 0 && (
-                <span
-                  aria-hidden="true"
-                  className="absolute -top-1.5 -right-2 min-w-[16px] h-4 bg-[var(--color-accent)] text-[color:var(--color-text-inverse)] text-[10px] font-medium leading-none flex items-center justify-center px-[3px]"
-                >
-                  {itemCount > 9 ? '9+' : itemCount}
-                </span>
-              )}
+              <span className="relative inline-flex items-center justify-center">
+                <IconBag className="h-[18px] w-[18px]" />
+                {itemCount > 0 && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute -right-2 -top-1.5 flex h-4 min-w-[16px] items-center justify-center bg-[var(--color-accent)] px-[3px] text-[10px] font-medium leading-none text-[color:var(--color-text-inverse)]"
+                  >
+                    {itemCount > 9 ? '9+' : itemCount}
+                  </span>
+                )}
+              </span>
             </button>
           </div>
 
         </div>
+
+        {/* Mega menu panels — outside the [&_a]:!text-inverse grid so link colors are not overridden */}
+        {(['men', 'women'] as MegaId[]).map((id) => (
+          <MegaMenuPanel
+            key={id}
+            id={id}
+            isOpen={openMegaMenu === id}
+            isDarkTheme={isDarkTheme}
+            onMouseEnter={() => handleMegaOpen(id)}
+            onMouseLeave={scheduleMegaClose}
+            onClose={() => {
+              cancelMegaClose()
+              setOpenMegaMenu(null)
+            }}
+          />
+        ))}
       </header>
 
       {/* ── Mobile navigation overlay ───────────────────────────────────────── */}
@@ -470,19 +611,19 @@ export function Header() {
             className="flex-1 overflow-y-auto px-5 py-8"
             aria-label="Mobile navigation"
           >
-              <ul className="flex flex-col gap-1">
-                {MOBILE_LINKS.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsMobileOpen(false)}
-                      className="block py-2.5 text-[1.875rem] font-light leading-none text-[color:var(--color-text-inverse)] hover:opacity-60 transition-opacity duration-100"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+            <ul className="flex flex-col gap-1">
+              {MOBILE_LINKS.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsMobileOpen(false)}
+                    className="block py-2.5 text-[1.875rem] font-light leading-none text-[color:var(--color-text-inverse)] hover:opacity-60 transition-opacity duration-100"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </nav>
 
           {/* Mobile overlay footer — account + wishlist */}
@@ -511,6 +652,10 @@ export function Header() {
           </div>
         </div>
       )}
+
+      {/* ── Cart drawer & Search drawer ── */}
+      <CartDrawer />
+      <SearchDrawer isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   )
 }

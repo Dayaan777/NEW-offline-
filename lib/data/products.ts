@@ -18,6 +18,7 @@ export const products: Product[] = [
     name: 'Margin',
     category: 'ground',
     price: 29500, // $295.00
+    originalPrice: 35000,
     shortDescription:
       'A low-profile leather sneaker. Clean lines, no visible branding. For the default day.',
     description:
@@ -88,6 +89,7 @@ export const products: Product[] = [
     name: 'Farrow',
     category: 'field',
     price: 39500, // $395.00
+    originalPrice: 48000,
     shortDescription:
       'An ankle-height utility boot. Waxed leather, Goodyear welted, resoleable. Designed to look better at six months than at six days.',
     description:
@@ -220,6 +222,7 @@ export const products: Product[] = [
     name: 'Weld',
     category: 'track',
     price: 26000, // $260.00
+    originalPrice: 32000,
     shortDescription:
       'A low runner built for daily movement. Mesh upper, leather overlays, thick rubber cupsole. Not a performance shoe.',
     description:

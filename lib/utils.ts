@@ -11,14 +11,14 @@ export function cn(...classes: ClassInput[]): string {
 
 /**
  * Format a price in cents to a display string.
- * @example formatPrice(29500) → "$295"
- * @example formatPrice(29550) → "$295.50"
+ * @example formatPrice(29500) → "PKR 295"
+ * @example formatPrice(29550) → "PKR 295.50"
  */
 export function formatPrice(cents: number): string {
-  const dollars = cents / 100
-  return dollars % 1 === 0
-    ? `$${dollars.toLocaleString('en-US')}`
-    : `$${dollars.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+  const amount = cents / 100
+  return amount % 1 === 0
+    ? `PKR ${amount.toLocaleString('en-US')}`
+    : `PKR ${amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
 }
 
 // ─── Slug utilities ───────────────────────────────────────────────────────────

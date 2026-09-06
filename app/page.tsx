@@ -1,8 +1,5 @@
 import { HomeHero } from '@/components/home/hero'
 import { FeaturedProductsSection } from '@/components/home/featured-products-section'
-import { MaterialsSection } from '@/components/home/materials-section'
-import { EditorialSection } from '@/components/home/editorial-section'
-import { FinalCtaSection } from '@/components/home/final-cta-section'
 import { CategoryTileGrid } from '@/components/home/category-tile-grid'
 import { GenderSplitBanner } from '@/components/home/gender-split-banner'
 
@@ -13,9 +10,6 @@ export default function HomePage() {
       <CategoryTileGrid />
       <GenderSplitBanner />
       <FeaturedProductsSection />
-      <MaterialsSection />
-      <EditorialSection />
-      <FinalCtaSection />
     </main>
   )
 }

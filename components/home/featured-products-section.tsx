@@ -25,10 +25,24 @@ export function FeaturedProductsSection() {
 
   return (
     <section aria-labelledby="featured-products-heading" className="bg-[var(--color-bg-primary)]">
-      <div className="container py-16 md:py-24">
-        <header className="mx-auto mb-14 flex w-full max-w-none flex-col items-center text-center md:mb-[56px]">
-          <h2 id="featured-products-heading" className="font-[family-name:var(--font-crimson)] text-[1.3rem] font-normal uppercase tracking-[0.02em] text-[var(--color-text-primary)] md:text-[1.45rem] pb-[7px]">Featured Collection</h2>
-          <Link href="/shop" className="mt-4 inline-flex border border-[var(--color-border-default)] px-4 py-2 text-[0.62rem] font-normal tracking-[0.28em] text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg-primary)] font-[family-name:var(--font-montserrat)] pb-[10px] h-[24.3594px] mb-[15px]">VIEW ALL</Link>
+      <div className="container py-16 md:py-28">
+        <header className="mx-auto mb-12 flex w-full max-w-none flex-col items-center gap-4 text-center md:mb-16">
+          <h2
+            id="featured-products-heading"
+            className="font-[family-name:var(--font-editorial)] text-3xl font-normal uppercase tracking-[0.06em] text-[var(--color-text-primary)] sm:text-4xl md:text-5xl lg:text-[3.25rem] leading-none"
+          >
+            Featured Collection
+          </h2>
+          <Link
+            href="/shop"
+            className="group/viewall relative font-[family-name:var(--font-montserrat)] text-[0.68rem] font-medium uppercase tracking-[0.3em] text-[var(--color-text-secondary)] transition-colors duration-200 hover:text-[var(--color-text-primary)]"
+          >
+            View All
+            <span
+              aria-hidden="true"
+              className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-[var(--color-text-primary)] transition-transform duration-300 ease-out group-hover/viewall:scale-x-100"
+            />
+          </Link>
         </header>
         <div className="grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4 md:gap-x-5">
           {featured.map((product) => {

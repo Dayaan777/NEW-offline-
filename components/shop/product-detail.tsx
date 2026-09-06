@@ -327,32 +327,40 @@ export function ProductDetail({ product, categoryName }: ProductDetailProps) {
             </Accordion>
 
             <Accordion label="Materials">
-              <dl className="pdp__dl">
-                <div className="pdp__dl-row">
-                  <dt>Upper</dt>
-                  <dd>{product.materials.upper}</dd>
-                </div>
-                {product.materials.lining && (
-                  <div className="pdp__dl-row">
-                    <dt>Lining</dt>
-                    <dd>{product.materials.lining}</dd>
-                  </div>
-                )}
-                <div className="pdp__dl-row">
-                  <dt>Insole</dt>
-                  <dd>{product.materials.insole}</dd>
-                </div>
-                <div className="pdp__dl-row">
-                  <dt>Outsole</dt>
-                  <dd>{product.materials.outsole}</dd>
-                </div>
-                {product.materials.origin && (
-                  <div className="pdp__dl-row">
-                    <dt>Origin</dt>
-                    <dd>{product.materials.origin}</dd>
-                  </div>
-                )}
-              </dl>
+              {product.materials && (
+                <dl className="pdp__dl">
+                  {product.materials.upper && (
+                    <div className="pdp__dl-row">
+                      <dt>Upper</dt>
+                      <dd>{product.materials.upper}</dd>
+                    </div>
+                  )}
+                  {product.materials.lining && (
+                    <div className="pdp__dl-row">
+                      <dt>Lining</dt>
+                      <dd>{product.materials.lining}</dd>
+                    </div>
+                  )}
+                  {product.materials.insole && (
+                    <div className="pdp__dl-row">
+                      <dt>Insole</dt>
+                      <dd>{product.materials.insole}</dd>
+                    </div>
+                  )}
+                  {product.materials.outsole && (
+                    <div className="pdp__dl-row">
+                      <dt>Outsole</dt>
+                      <dd>{product.materials.outsole}</dd>
+                    </div>
+                  )}
+                  {product.materials.origin && (
+                    <div className="pdp__dl-row">
+                      <dt>Origin</dt>
+                      <dd>{product.materials.origin}</dd>
+                    </div>
+                  )}
+                </dl>
+              )}
             </Accordion>
 
             <Accordion label="Construction">

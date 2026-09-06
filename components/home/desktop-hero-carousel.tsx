@@ -56,7 +56,7 @@ export function DesktopHeroCarousel() {
             <img
               src={slide.src}
               alt={slide.alt}
-              className="h-full w-full object-cover object-[center_top]"
+              className="h-full w-full object-cover object-[left_center]"
             />
           ) : (
             <div className="flex h-full w-full">

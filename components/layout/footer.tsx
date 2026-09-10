@@ -1,144 +1,80 @@
 import Link from 'next/link'
+import { MessageCircle } from 'lucide-react'
 import { NewsletterForm } from '@/components/layout/newsletter-form'
 
-// ─── Link data ────────────────────────────────────────────────────────────────
-
-const FOOTER_SHOP = [
-  { label: 'Ground', href: '/shop/ground' },
-  { label: 'Field', href: '/shop/field' },
-  { label: 'Floor', href: '/shop/floor' },
-  { label: 'Track', href: '/shop/track' },
-  { label: 'New Arrivals', href: '/shop/new' },
+const ABOUT_LINKS = [
+  { label: 'Terms & Conditions', href: '/terms' },
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Shipping & Handling', href: '/support/shipping' },
+  { label: 'Returns & Exchange', href: '/support/returns' },
+  { label: 'Men & Women Size Chart', href: '/support/sizing' },
+  { label: 'Boys & Girls Size Chart', href: '/support/sizing/kids' },
+  { label: 'Our Blogs', href: '/journal' },
 ]
 
-const FOOTER_BRAND = [
-  { label: 'About', href: '/brand' },
-  { label: 'Materials', href: '/brand/materials' },
-  { label: 'Journal', href: '/journal' },
+const SOCIAL_LINKS = [
+  { label: 'Facebook', mark: 'f', href: 'https://facebook.com' },
+  { label: 'Instagram', mark: '◎', href: 'https://instagram.com' },
+  { label: 'LinkedIn', mark: 'in', href: 'https://linkedin.com' },
+  { label: 'YouTube', mark: '▶', href: 'https://youtube.com' },
+  { label: 'TikTok', mark: '♪', href: 'https://tiktok.com' },
 ]
 
-const FOOTER_SUPPORT = [
-  { label: 'Size Guide', href: '/support/sizing' },
-  { label: 'Shipping', href: '/support/shipping' },
-  { label: 'Returns', href: '/support/returns' },
-  { label: 'FAQ', href: '/support/faq' },
-  { label: 'Contact', href: '/support/contact' },
-]
-
-// ─── Shared link style ────────────────────────────────────────────────────────
-
-const footerLink =
-  'text-[15px] text-[var(--color-text-inverse-muted)] hover:text-[var(--color-text-inverse)] transition-colors duration-100'
-
-// ─── Component ────────────────────────────────────────────────────────────────
+const footerLink = 'text-[13px] leading-6 text-[var(--color-text-primary)] transition-opacity hover:opacity-60'
+const sectionHeading = 'text-[14px] font-semibold uppercase tracking-[0.02em] text-[var(--color-text-primary)]'
 
 export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer
-      className="bg-[var(--color-bg-inverse)] text-[var(--color-text-inverse)]"
-      aria-label="Site footer"
-    >
-      <div className="container py-16 md:py-20">
-
-        {/* Main grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
-
-          {/* Shop */}
-          <div>
-            <p className="label-category text-[var(--color-text-inverse-muted)] mb-5">
-              Shop
-            </p>
-            <ul className="space-y-3">
-              {FOOTER_SHOP.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className={footerLink}>
-                    {item.label}
-                  </Link>
-                </li>
+    <footer className="border-t border-[var(--color-border-subtle)] bg-white text-[var(--color-text-primary)]" aria-label="Site footer">
+      <div className="mx-auto max-w-[1440px] px-5 py-7 md:px-9 md:py-7">
+        <div className="grid gap-8 md:grid-cols-[1.05fr_1fr_1fr_1fr] md:gap-10 lg:gap-16">
+          <section aria-labelledby="footer-about">
+            <h2 id="footer-about" className={sectionHeading}>About Us</h2>
+            <ul className="mt-6 space-y-1">
+              {ABOUT_LINKS.map((item) => (
+                <li key={item.href}><Link href={item.href} className={footerLink}>{item.label}</Link></li>
               ))}
             </ul>
-          </div>
+          </section>
 
-          {/* The Brand */}
-          <div>
-            <p className="label-category text-[var(--color-text-inverse-muted)] mb-5">
-              The Brand
-            </p>
-            <ul className="space-y-3">
-              {FOOTER_BRAND.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className={footerLink}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div>
-            <p className="label-category text-[var(--color-text-inverse-muted)] mb-5">
-              Support
-            </p>
-            <ul className="space-y-3">
-              {FOOTER_SUPPORT.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className={footerLink}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div className="col-span-2 md:col-span-1">
-            <p className="label-category text-[var(--color-text-inverse-muted)] mb-5">
-              Stay informed
-            </p>
-            <p className="text-[15px] text-[var(--color-text-inverse-muted)] mb-6 leading-relaxed max-w-[240px]">
-              New product when it&apos;s ready.{' '}
-              <span className="text-[var(--color-text-inverse)]">Nothing else.</span>
-            </p>
+          <section aria-labelledby="footer-signup">
+            <h2 id="footer-signup" className={sectionHeading}>Sign Up and Save</h2>
             <NewsletterForm />
-          </div>
+            <nav aria-label="Social media" className="mt-7 flex items-center gap-5">
+              {SOCIAL_LINKS.map(({ label, href, mark }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={`${label} (opens in new tab)`} className="text-[var(--color-text-primary)] transition-opacity hover:opacity-60">
+                  <span aria-hidden="true" className="text-[16px] font-bold leading-none">{mark}</span>
+                </a>
+              ))}
+            </nav>
+          </section>
 
+          <section aria-labelledby="footer-service">
+            <h2 id="footer-service" className={sectionHeading}>Customer Service</h2>
+            <div className="mt-6 space-y-2 text-[13px] leading-5">
+              <p><a href="mailto:info@ismailsclothing.com" className="underline underline-offset-2 hover:opacity-60">Email</a><span className="px-2">|</span><a href="https://wa.me/924232301095" className="underline underline-offset-2 hover:opacity-60">Whatsapp</a></p>
+              <p>Contact us at <a href="tel:+924232301095" className="underline underline-offset-2 hover:opacity-60">042 32301095</a></p>
+              <p className="pt-1">Office Timing<br />10am to 7pm<br />Monday to Saturday</p>
+            </div>
+          </section>
+
+          <section aria-labelledby="footer-stores">
+            <h2 id="footer-stores" className={sectionHeading}>Stores Location</h2>
+            <Link href="/stores" className={`${footerLink} mt-6 inline-block`}>Stores Location</Link>
+          </section>
         </div>
-
-        {/* Bottom bar */}
-        <div className="mt-16 pt-8 border-t border-[var(--color-border-inverse)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-          <p className="text-[12px] text-[var(--color-text-inverse-muted)]">
-            © {year} OFFLINE. All rights reserved.
-          </p>
-
-          <div className="flex items-center gap-5 flex-wrap">
-            <Link
-              href="/privacy"
-              className="text-[12px] text-[var(--color-text-inverse-muted)] hover:text-[var(--color-text-inverse)] transition-colors duration-100"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="text-[12px] text-[var(--color-text-inverse-muted)] hover:text-[var(--color-text-inverse)] transition-colors duration-100"
-            >
-              Terms
-            </Link>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="OFFLINE on Instagram (opens in new tab)"
-              className="text-[12px] text-[var(--color-text-inverse-muted)] hover:text-[var(--color-text-inverse)] transition-colors duration-100"
-            >
-              Instagram
-            </a>
-          </div>
-        </div>
-
       </div>
+
+      <div className="border-t border-[var(--color-border-subtle)] px-5 py-4 text-center text-[12px] tracking-[0.02em] text-[var(--color-text-secondary)]">
+        © {year}, Ismail&apos;s Clothing
+      </div>
+
+      <a href="https://wa.me/924232301095" aria-label="Contact us on WhatsApp" className="fixed bottom-4 right-5 z-40 grid h-8 w-8 place-items-center rounded-full bg-[#25D366] text-white shadow-md transition-transform hover:scale-105">
+        <MessageCircle size={20} fill="currentColor" aria-hidden="true" />
+      </a>
     </footer>
   )
 }
+

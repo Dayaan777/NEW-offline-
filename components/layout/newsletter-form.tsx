@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Mail } from 'lucide-react'
 
 export function NewsletterForm() {
   const [email, setEmail] = useState('')
@@ -8,36 +9,26 @@ export function NewsletterForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (email.trim()) {
-      setStatus('submitted')
-    }
+    if (email.trim()) setStatus('submitted')
   }
 
   if (status === 'submitted') {
-    return (
-      <p className="text-[15px] text-[var(--color-text-inverse)] leading-relaxed">
-        Noted.
-      </p>
-    )
+    return <p className="mt-6 text-[13px] leading-6 text-[var(--color-text-primary)]">Thank you for subscribing.</p>
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-end gap-0">
+    <form onSubmit={handleSubmit} className="mt-6 flex max-w-[252px] items-end border-b border-[var(--color-text-primary)]">
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="your@email.com"
+        placeholder="Enter your email"
         required
         aria-label="Email address for newsletter"
-        className="flex-1 bg-transparent border-b border-[var(--color-border-inverse)] pb-2 text-[15px] text-[var(--color-text-inverse)] placeholder:text-[var(--color-text-inverse-muted)] focus:outline-none focus:border-[var(--color-text-inverse)] transition-colors duration-150"
+        className="min-w-0 flex-1 bg-transparent py-1 text-[13px] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-secondary)] focus:outline-none"
       />
-      <button
-        type="submit"
-        aria-label="Subscribe"
-        className="pb-2 pl-3 border-b border-[var(--color-border-inverse)] text-[var(--color-text-inverse-muted)] hover:text-[var(--color-text-inverse)] transition-colors duration-100 focus:outline-none focus-visible:text-[var(--color-text-inverse)]"
-      >
-        →
+      <button type="submit" aria-label="Subscribe" className="p-1 text-[var(--color-text-primary)] transition-opacity hover:opacity-60">
+        <Mail size={20} strokeWidth={1.4} aria-hidden="true" />
       </button>
     </form>
   )

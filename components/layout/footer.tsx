@@ -20,14 +20,14 @@ const SOCIAL_LINKS = [
   { label: 'TikTok', mark: '♪', href: 'https://tiktok.com' },
 ]
 
-const footerLink = 'text-[13px] leading-6 text-neutral-300 transition-colors hover:text-white'
-const sectionHeading = 'h-5 whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.12em] text-white'
+const footerLink = 'text-[13px] leading-6 text-neutral-600 transition-colors hover:text-neutral-900'
+const sectionHeading = 'h-5 whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.12em] text-neutral-900'
 
 export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-neutral-800 bg-black text-neutral-300" aria-label="Site footer">
+    <footer className="border-t border-neutral-300 bg-[#F4F1EA] text-neutral-600" aria-label="Site footer">
       <div className="mx-auto max-w-[1440px] px-5 py-10 md:px-9 md:py-12">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-10 md:gap-y-12 lg:grid-cols-4 lg:gap-16">
           <section aria-labelledby="footer-about">
@@ -44,7 +44,7 @@ export function Footer() {
             <NewsletterForm />
             <nav aria-label="Social media" className="mt-7 flex items-center gap-5">
               {SOCIAL_LINKS.map(({ label, href, mark }) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={`${label} (opens in new tab)`} className="text-[var(--color-text-primary)] transition-opacity hover:opacity-60">
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={`${label} (opens in new tab)`} className="text-neutral-700 transition-colors hover:text-black">
                   <span aria-hidden="true" className="text-[16px] font-bold leading-none">{mark}</span>
                 </a>
               ))}
@@ -67,13 +67,13 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-neutral-800 px-5 py-4 text-[12px] tracking-[0.02em] text-neutral-400">
+      <div className="border-t border-neutral-300 px-5 py-4 text-[12px] tracking-[0.02em] text-neutral-600">
         <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-3 md:flex-row">
           <span>© {year}, Ismail&apos;s Clothing</span>
           <nav aria-label="Footer legal links" className="flex items-center gap-4">
-            <Link href="/privacy" className="transition-colors hover:text-white">Privacy</Link>
-            <Link href="/terms" className="transition-colors hover:text-white">Terms</Link>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">Instagram</a>
+            <Link href="/privacy" className="transition-colors hover:text-neutral-900">Privacy</Link>
+            <Link href="/terms" className="transition-colors hover:text-neutral-900">Terms</Link>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-neutral-900">Instagram</a>
           </nav>
         </div>
       </div>

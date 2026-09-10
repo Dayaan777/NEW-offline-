@@ -61,11 +61,11 @@ export function Footer() {
       className="bg-[var(--color-bg-inverse)] text-[var(--color-text-inverse)]"
       aria-label="Site footer"
     >
-      <div className="container py-12 md:py-14">
+      <div className="container py-16 md:py-20">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-12 lg:gap-y-8">
           {/* About Us */}
           <div>
-            <p className="mb-6 text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]">
+            <p className="mb-8 text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]">
               About Us
             </p>
             <ul className="space-y-1.5">
@@ -81,7 +81,7 @@ export function Footer() {
 
           {/* Sign Up and Save */}
           <div>
-            <p className="mb-6 text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]">
+            <p className="mb-8 text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]">
               Sign Up and Save
             </p>
             <NewsletterForm />
@@ -103,7 +103,7 @@ export function Footer() {
 
           {/* Customer Service */}
           <div>
-            <p className="mb-6 text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]">
+            <p className="mb-8 text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]">
               Customer Service
             </p>
             <div className="space-y-2 text-[13px] leading-relaxed text-[var(--color-text-inverse-muted)]">
@@ -132,7 +132,7 @@ export function Footer() {
 
           {/* Stores Location */}
           <div>
-            <p className="mb-6 text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]">
+            <p className="mb-8 text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]">
               Stores Location
             </p>
             <p className="text-[13px] leading-relaxed text-[var(--color-text-inverse-muted)]">

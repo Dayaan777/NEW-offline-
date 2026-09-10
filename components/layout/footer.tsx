@@ -94,13 +94,13 @@ function SocialIcon({ name }: { name: SocialIconName }) {
 }
 
 const footerLink =
-  'inline-flex min-h-7 items-center text-[13px] leading-snug text-[var(--color-text-inverse-muted)] transition-colors duration-150 hover:text-[var(--color-text-inverse)] hover:underline hover:underline-offset-4 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-text-inverse)]'
+  'inline-flex min-h-8 items-center text-[14px] leading-7 text-[var(--color-text-inverse-muted)] transition-colors duration-150 hover:text-[var(--color-text-inverse)] hover:underline hover:underline-offset-4 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-text-inverse)]'
 
 const footerHeading =
-  'text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]'
+  'text-[13px] font-semibold uppercase tracking-[0.12em] text-[var(--color-text-inverse)]'
 
 const footerHeadingStyle = {
-  marginBottom: 'clamp(2rem, 3vw, 3rem)',
+  marginBottom: 'clamp(2.25rem, 3.5vw, 3.5rem)',
 } as const
 
 export function Footer() {
@@ -122,7 +122,7 @@ export function Footer() {
               About Us
             </p>
 
-            <ul className="space-y-[10px]">
+            <ul className="space-y-3">
               {FOOTER_ABOUT.map((item) => (
                 <li key={item.href}>
                   <Link
@@ -146,7 +146,7 @@ export function Footer() {
 
             <nav
               aria-label="Social media"
-              className="mt-[28px] flex items-center gap-4"
+              className="mt-10 flex items-center gap-5"
             >
               {SOCIAL_LINKS.map((social) => (
                 <a
@@ -169,7 +169,7 @@ export function Footer() {
               Customer Service
             </p>
 
-            <div className="space-y-[10px] text-[13px] leading-relaxed text-[var(--color-text-inverse-muted)]">
+            <div className="space-y-3 text-[14px] leading-7 text-[var(--color-text-inverse-muted)]">
 
               <p>
                 <Link
@@ -224,7 +224,7 @@ export function Footer() {
               Stores Location
             </p>
 
-            <div className="space-y-[10px] text-[13px] leading-relaxed text-[var(--color-text-inverse-muted)]">
+            <div className="space-y-3 text-[14px] leading-7 text-[var(--color-text-inverse-muted)]">
               <p>
                 Online Store
               </p>
@@ -241,7 +241,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-[30px] border-t border-[var(--color-border-inverse)] pt-[4px] pb-[8px] text-center">
+        <div className="mt-16 flex w-full justify-center border-t border-[var(--color-border-inverse)] pt-6 pb-2 text-center">
           <p className="text-[12px] text-[var(--color-text-inverse-muted)]">
             © {year}, OFFLINE. All rights reserved.
           </p>

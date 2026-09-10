@@ -97,7 +97,7 @@ const footerLink =
   'inline-flex min-h-7 items-center text-[13px] leading-snug text-[var(--color-text-inverse-muted)] transition-colors duration-150 hover:text-[var(--color-text-inverse)] hover:underline hover:underline-offset-4 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-text-inverse)]'
 
 const footerHeading =
-  'mb-9 text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]'
+  'text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]'
 
 export function Footer() {
   const year = new Date().getFullYear()
@@ -107,16 +107,18 @@ export function Footer() {
       className="bg-[var(--color-bg-inverse)] text-[var(--color-text-inverse)]"
       aria-label="Site footer"
     >
-      <div className="container py-8 md:py-10">
+      {/* Main footer content */}
+      <div className="container pt-[32px] pb-[0px]">
+
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-12 lg:gap-y-8">
 
           {/* About Us */}
           <div>
-            <p className={footerHeading}>
+            <p className={`${footerHeading} mb-[34px]`}>
               About Us
             </p>
 
-            <ul className="space-y-2.5">
+            <ul className="space-y-[10px]">
               {FOOTER_ABOUT.map((item) => (
                 <li key={item.href}>
                   <Link
@@ -132,7 +134,7 @@ export function Footer() {
 
           {/* Sign Up and Save */}
           <div>
-            <p className={footerHeading}>
+            <p className={`${footerHeading} mb-[34px]`}>
               Sign Up and Save
             </p>
 
@@ -140,7 +142,7 @@ export function Footer() {
 
             <nav
               aria-label="Social media"
-              className="mt-7 flex items-center gap-4"
+              className="mt-[28px] flex items-center gap-4"
             >
               {SOCIAL_LINKS.map((social) => (
                 <a
@@ -159,11 +161,12 @@ export function Footer() {
 
           {/* Customer Service */}
           <div>
-            <p className={footerHeading}>
+            <p className={`${footerHeading} mb-[34px]`}>
               Customer Service
             </p>
 
-            <div className="space-y-2 text-[13px] leading-relaxed text-[var(--color-text-inverse-muted)]">
+            <div className="space-y-[10px] text-[13px] leading-relaxed text-[var(--color-text-inverse-muted)]">
+
               <p>
                 <Link
                   href="/support/contact"
@@ -187,7 +190,7 @@ export function Footer() {
                 </Link>
               </p>
 
-              <ul className="space-y-1 pt-1">
+              <ul className="space-y-[10px] pt-[2px]">
                 {FOOTER_SUPPORT.slice(1, 4).map((item) => (
                   <li key={item.href}>
                     <Link
@@ -200,41 +203,46 @@ export function Footer() {
                 ))}
               </ul>
 
-              <p className="pt-1">
+              <p className="pt-[2px]">
                 Monday to Saturday
               </p>
 
               <p>
                 10am to 7pm
               </p>
+
             </div>
           </div>
 
           {/* Stores Location */}
           <div>
-            <p className={footerHeading}>
+            <p className={`${footerHeading} mb-[34px]`}>
               Stores Location
             </p>
 
-            <p className="text-[13px] leading-relaxed text-[var(--color-text-inverse-muted)]">
-              Online Store
-            </p>
+            <div className="space-y-[10px] text-[13px] leading-relaxed text-[var(--color-text-inverse-muted)]">
+              <p>
+                Online Store
+              </p>
 
-            <Link
-              href="/shop"
-              className={footerLink}
-            >
-              Explore the collection
-            </Link>
+              <Link
+                href="/shop"
+                className={footerLink}
+              >
+                Explore the collection
+              </Link>
+            </div>
           </div>
+
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 border-t border-[var(--color-border-inverse)] pt-4 text-center">
+        <div className="mt-[30px] border-t border-[var(--color-border-inverse)] pt-[4px] pb-[8px] text-center">
           <p className="text-[12px] text-[var(--color-text-inverse-muted)]">
             © {year}, OFFLINE. All rights reserved.
           </p>
         </div>
+
       </div>
     </footer>
   )

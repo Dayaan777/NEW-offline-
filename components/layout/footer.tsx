@@ -6,7 +6,7 @@ const FOOTER_ABOUT = [
   { label: 'Privacy Policy', href: '/privacy' },
   { label: 'Shipping & Handling', href: '/support/shipping' },
   { label: 'Returns & Exchange', href: '/support/returns' },
-  { label: 'Men's & Women's Size Chart', href: '/support/sizing' },
+  { label: "Men's & Women's Size Chart", href: '/support/sizing' },
   { label: 'Our Journal', href: '/journal' },
 ]
 

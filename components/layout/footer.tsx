@@ -20,19 +20,19 @@ const SOCIAL_LINKS = [
   { label: 'TikTok', mark: '♪', href: 'https://tiktok.com' },
 ]
 
-const footerLink = 'text-[13px] leading-6 text-[var(--color-text-primary)] transition-opacity hover:opacity-60'
-const sectionHeading = 'text-[14px] font-semibold uppercase tracking-[0.02em] text-[var(--color-text-primary)]'
+const footerLink = 'text-[13px] leading-6 text-neutral-300 transition-colors hover:text-white'
+const sectionHeading = 'h-5 whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.12em] text-white'
 
 export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-[var(--color-border-subtle)] bg-white text-[var(--color-text-primary)]" aria-label="Site footer">
-      <div className="mx-auto max-w-[1440px] px-5 py-7 md:px-9 md:py-7">
-        <div className="grid gap-8 md:grid-cols-[1.05fr_1fr_1fr_1fr] md:gap-10 lg:gap-16">
+    <footer className="border-t border-neutral-800 bg-black text-neutral-300" aria-label="Site footer">
+      <div className="mx-auto max-w-[1440px] px-5 py-10 md:px-9 md:py-12">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-10 md:gap-y-12 lg:grid-cols-4 lg:gap-16">
           <section aria-labelledby="footer-about">
             <h2 id="footer-about" className={sectionHeading}>About Us</h2>
-            <ul className="mt-6 space-y-1">
+            <ul className="mt-6 space-y-2">
               {ABOUT_LINKS.map((item) => (
                 <li key={item.href}><Link href={item.href} className={footerLink}>{item.label}</Link></li>
               ))}
@@ -53,9 +53,9 @@ export function Footer() {
 
           <section aria-labelledby="footer-service">
             <h2 id="footer-service" className={sectionHeading}>Customer Service</h2>
-            <div className="mt-6 space-y-2 text-[13px] leading-5">
-              <p><a href="mailto:info@ismailsclothing.com" className="underline underline-offset-2 hover:opacity-60">Email</a><span className="px-2">|</span><a href="https://wa.me/924232301095" className="underline underline-offset-2 hover:opacity-60">Whatsapp</a></p>
-              <p>Contact us at <a href="tel:+924232301095" className="underline underline-offset-2 hover:opacity-60">042 32301095</a></p>
+            <div className="mt-6 space-y-2 text-[13px] leading-5 text-neutral-300">
+              <p><a href="mailto:info@ismailsclothing.com" className="text-neutral-300 underline underline-offset-2 transition-colors hover:text-white">Email</a><span className="px-2">|</span><a href="https://wa.me/924232301095" className="text-neutral-300 underline underline-offset-2 transition-colors hover:text-white">Whatsapp</a></p>
+              <p>Contact us at <a href="tel:+924232301095" className="text-neutral-300 underline underline-offset-2 transition-colors hover:text-white">042 32301095</a></p>
               <p className="pt-1">Office Timing<br />10am to 7pm<br />Monday to Saturday</p>
             </div>
           </section>
@@ -67,8 +67,15 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-[var(--color-border-subtle)] px-5 py-4 text-center text-[12px] tracking-[0.02em] text-[var(--color-text-secondary)]">
-        © {year}, Ismail&apos;s Clothing
+      <div className="border-t border-neutral-800 px-5 py-4 text-[12px] tracking-[0.02em] text-neutral-400">
+        <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-3 md:flex-row">
+          <span>© {year}, Ismail&apos;s Clothing</span>
+          <nav aria-label="Footer legal links" className="flex items-center gap-4">
+            <Link href="/privacy" className="transition-colors hover:text-white">Privacy</Link>
+            <Link href="/terms" className="transition-colors hover:text-white">Terms</Link>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">Instagram</a>
+          </nav>
+        </div>
       </div>
 
       <a href="https://wa.me/924232301095" aria-label="Contact us on WhatsApp" className="fixed bottom-4 right-5 z-40 grid h-8 w-8 place-items-center rounded-full bg-[#25D366] text-white shadow-md transition-transform hover:scale-105">

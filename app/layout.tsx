@@ -3,7 +3,6 @@ import { DM_Sans, Instrument_Serif, Crimson_Text, Montserrat } from 'next/font/g
 import { CartProvider } from '@/context/cart-context'
 import { WishlistProvider } from '@/context/wishlist-context'
 import { Header } from '@/components/layout/header'
-import { FooterIntro } from '@/components/layout/footer-intro'
 import { Footer } from '@/components/layout/footer'
 import '@/app/globals.css'
 
@@ -82,7 +81,6 @@ export default function RootLayout({
               {children}
             </main>
 
-            <FooterIntro />
             <Footer />
           </WishlistProvider>
         </CartProvider>

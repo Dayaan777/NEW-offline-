@@ -97,7 +97,7 @@ const footerLink =
   'inline-flex min-h-7 items-center text-[13px] leading-snug text-[var(--color-text-inverse-muted)] transition-colors duration-150 hover:text-[var(--color-text-inverse)] hover:underline hover:underline-offset-4 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-text-inverse)]'
 
 const footerHeading =
-  'text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]'
+  'mb-10 text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-text-inverse)] md:mb-12'
 
 export function Footer() {
   const year = new Date().getFullYear()
@@ -108,13 +108,13 @@ export function Footer() {
       aria-label="Site footer"
     >
       {/* Main footer content */}
-      <div className="container pt-[32px] pb-[0px]">
+      <div className="container pt-16 pb-10 md:pt-20 md:pb-12">
 
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-12 lg:gap-y-8">
 
           {/* About Us */}
           <div>
-            <p className={`${footerHeading} mb-[34px]`}>
+            <p className={footerHeading}>
               About Us
             </p>
 
@@ -134,7 +134,7 @@ export function Footer() {
 
           {/* Sign Up and Save */}
           <div>
-            <p className={`${footerHeading} mb-[34px]`}>
+            <p className={footerHeading}>
               Sign Up and Save
             </p>
 
@@ -161,7 +161,7 @@ export function Footer() {
 
           {/* Customer Service */}
           <div>
-            <p className={`${footerHeading} mb-[34px]`}>
+            <p className={footerHeading}>
               Customer Service
             </p>
 
@@ -216,7 +216,7 @@ export function Footer() {
 
           {/* Stores Location */}
           <div>
-            <p className={`${footerHeading} mb-[34px]`}>
+            <p className={footerHeading}>
               Stores Location
             </p>
 
